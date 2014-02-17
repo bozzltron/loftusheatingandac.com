@@ -16,7 +16,12 @@ module.exports.adapters = {
 
   // If you leave the adapter config unspecified 
   // in a model definition, 'default' will be used.
-  'default': 'disk',
+  'default': 'mongo',
+
+  mongo: {
+    module   : 'sails-mongo',
+    url      : process.env.MONGOLAB_URI || 'mongodb://localhost:27017/sails'
+  },
 
   // Persistent adapter for DEVELOPMENT ONLY
   // (data is preserved when the server shuts down)

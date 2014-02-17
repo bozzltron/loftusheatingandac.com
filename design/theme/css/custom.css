@@ -27,9 +27,9 @@ h1.hl small, h2.hl small, h3.hl small, h4.hl small, h5.hl small, h6.hl small {
 	min-height: 100%;
 	height: auto !important; /* for older versions of IE */
 	height: 100%;
-	/*margin-bottom: -347px; /* showing the footer */
+	margin-bottom: -347px; /* showing the footer */
 	padding-top: 50px;
-	/*padding-bottom: 347px; /* avoiding content go behind the footer */
+	padding-bottom: 347px; /* avoiding content go behind the footer */
 }
 
 /* ===== Navbar ===== */
@@ -95,10 +95,10 @@ h1.hl small, h2.hl small, h3.hl small, h4.hl small, h5.hl small, h6.hl small {
 
 #wrap {
 	height: 480px;
-	background: url(../img/blur.jpg);
+	background: url(../img/bg3.jpg);
 	background-size: cover;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/blur.jpg', sizingMethod='scale');
-	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/blur.jpg', sizingMethod='scale')";
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bg3.jpg', sizingMethod='scale');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bg3.jpg', sizingMethod='scale')";
 	background-position: center;
 	border-bottom: 1px solid #eee;
 	color: #fff;

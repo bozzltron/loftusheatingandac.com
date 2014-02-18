@@ -44,12 +44,21 @@ module.exports.routes = {
     view: 'about/index'
   },
 
+  'get /about/team': {
+    view: 'about/team'
+  },
+
   'get /blog': {
     view: 'blog/index'
   },
 
   'get /faq': {
     view: 'faq/index'
+  },
+
+  'post /contact': {
+    controller: 'contact',
+    action: 'send'
   }
 
   /*

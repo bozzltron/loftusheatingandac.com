@@ -13,26 +13,34 @@
     </div>
 	<div class="container">
 	  <div class="row">
+
+		<% _.each(messages, function(m){ %>
+		    <% if(m.type) { %>
+			<div class="alert alert-<%= m.type %>"><%= m.message %></div>
+			<% } %>
+		<% }); %>
+
 	    <!-- Contact us form -->
 		<div class="col-sm-8">
 		  <h2 class="hl top-zero">Contact Us</h2>
 		  <hr>
 		  <p>You can leave a message using the contact form below.</p>
-			<form role="form">
+			<form role="form" action="/contact" method="POST">
 			  <div class="form-group">
 				<label for="email">Your email address</label>
-				<input type="email" class="form-control" id="email" placeholder="Enter email">
+				<input type="email" class="form-control" id="email" placeholder="Enter email" name="from" />
 			  </div>
 			  <div class="form-group">
 				<label for="name">Your name</label>
-				<input type="text" class="form-control" id="name" placeholder="Enter name">
+				<input type="text" class="form-control" id="name" placeholder="Enter name" name="name" />
 			  </div>
 			  <div class="form-group">
 				<label for="message">Your message</label>
-				<textarea class="form-control" rows="3" id="message" placeholder="Enter message"></textarea>
+				<textarea class="form-control" rows="3" id="message" placeholder="Enter message" name="message"></textarea>
 			  </div>
 			  <button type="submit" class="hl-btn hl-btn-green">Send request</button>
 			</form>
+	
 		</div>
 		<!-- Right column -->
 		<div class="col-sm-4">

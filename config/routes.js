@@ -37,7 +37,8 @@ module.exports.routes = {
   },
 
   'get /contact': {
-    view: 'contact/index'
+    controller: 'contact',
+    action: 'index'
   },
 
   'get /about': {

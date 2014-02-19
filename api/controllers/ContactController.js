@@ -14,38 +14,44 @@
  *
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
+var sendgrid  = require('sendgrid')(
+  'app22294212@heroku.com', //process.env.SENDGRID_USERNAME,
+  'tqbt2ivp' //process.env.SENDGRID_PASSWORD
+);
 
 module.exports = {
     
-  
+  index: function(req, res) {
+    return res.view('contact/index', { messages: [{}] } );
+  },
+
   /**
    * Action blueprints:
    *    `/contact/send`
    */
    send: function (req, res) {
-    
-        if(typeof(req.body.from) != undefined && req.body.subject && req.body.message) {
+
+        if(typeof(req.body.from) != undefined && req.body.name && req.body.message) {
       
-            var SendGrid = require('sendgrid').SendGrid;
-            var sendgrid = new SendGrid('app22294212@heroku.com', 'tqbt2ivp');
             sendgrid.send({
-              to: 'service@loftusheatingandac.com',
-              from: req.body.from,
-              subject: 'LoftusHeatingAndAC.com [Contact Form] : ' + req.body.name,
-              text: req.body.message
-            }, function(success, message) {
-              if (!success) {
-                return res.view('contact/index', {messages:[{type:"error", message:"There Was A Problem.  Try Again."}]});
-                console.log(message);
-              } else {
-                return res.view('contact/index', {messages:[{type:"success", message:"Your Message Was Sent.  Thank You!"}]});  
-              }
+                to: 'service@loftusheatingandac.com',
+                from: req.body.from,
+                subject: 'LoftusHeatingAndAC.com [Contact Form] : ' + req.body.name,
+                text: req.body.message
+            }, function(err, json) {
+                if (err) { 
+                    console.error(err, json); 
+                    return res.view('contact/index', {messages:[{type:"danger", message:"There Was A Problem.  Try Again."}]});
+                } else {
+                   return res.view('contact/index', {messages:[{type:"success", message:"Your Message Was Sent.  Thank You!"}]});  
+                }
+                console.log(json);
             });
 
         } else {
-            return res.view('contact/index', {messages:[{type:"error", message:"Please fill out all of the fields!"}]});
+            return res.view('contact/index', {messages:[{type:"danger", message:"Please fill out all of the fields!"}]});
         }
-        
+
   },
 
 

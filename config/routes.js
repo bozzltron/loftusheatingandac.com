@@ -45,8 +45,20 @@ module.exports.routes = {
     view: 'about/index'
   },
 
+  'get /about/guarantee': {
+    view: 'about/guarantee'
+  },  
+
+  'get /about/indoor-air-quality': {
+    view: 'about/indoor-air-quality'
+  },    
+
   'get /about/team': {
     view: 'about/team'
+  },
+
+  'get /about/services': {
+    view: 'about/services'
   },
 
   'get /blog': {

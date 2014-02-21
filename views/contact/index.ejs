@@ -38,6 +38,7 @@
 				<label for="message">Your message</label>
 				<textarea class="form-control" rows="3" id="message" placeholder="Enter message" name="message"></textarea>
 			  </div>
+			  <input type='hidden' name='_csrf' value='<%= _csrf %>' />
 			  <button type="submit" class="hl-btn hl-btn-green">Send request</button>
 			</form>
 	

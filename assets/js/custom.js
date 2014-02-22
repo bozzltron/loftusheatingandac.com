@@ -7,28 +7,28 @@ Last change:	04/01/2014
 
 // Sign in & sing out nav bar demo. To be removed on an operational website
 // ========================================================================
-$('#sign-in').on('click', function() {
-	$("#sign-up").toggleClass('show hidden');
-	$("#sign-in").toggleClass('show hidden');
-	$("#cogs-menu").toggleClass('show hidden animated fadeIn');
-	$("#profile-menu").toggleClass('show hidden animated fadeIn');
-	return false;
-});
-$('#sign-out').on('click', function() {
-	$("#sign-up").toggleClass('show hidden');
-	$("#sign-in").toggleClass('show hidden');
-	$("#cogs-menu").toggleClass('show hidden animated fadeIn');
-	$("#profile-menu").toggleClass('show hidden animated fadeIn');
-	return false;
-});
+// $('#sign-in').on('click', function() {
+// 	$("#sign-up").toggleClass('show hidden');
+// 	$("#sign-in").toggleClass('show hidden');
+// 	$("#cogs-menu").toggleClass('show hidden animated fadeIn');
+// 	$("#profile-menu").toggleClass('show hidden animated fadeIn');
+// 	return false;
+// });
+// $('#sign-out').on('click', function() {
+// 	$("#sign-up").toggleClass('show hidden');
+// 	$("#sign-in").toggleClass('show hidden');
+// 	$("#cogs-menu").toggleClass('show hidden animated fadeIn');
+// 	$("#profile-menu").toggleClass('show hidden animated fadeIn');
+// 	return false;
+// });
 
 // Search box toggle
 // =================
-$('#search-btn').on('click', function() {
-	$("#search-icon").toggleClass('fa-search fa-times margin-2');
-	$("#search-box").toggleClass('show hidden animated fadeInUp');
-	return false;
-});
+// $('#search-btn').on('click', function() {
+// 	$("#search-icon").toggleClass('fa-search fa-times margin-2');
+// 	$("#search-box").toggleClass('show hidden animated fadeInUp');
+// 	return false;
+// });
 
 // Smooth scrolling for UI elements page
 // =====================================

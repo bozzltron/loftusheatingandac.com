@@ -17,14 +17,50 @@
 
 module.exports = {
     
-  attributes: {
+	attributes: {
 
-    email    : 'string',
-    password : 'string'
+    	email    : 'string',
+    	password : 'string'
 
-  },
+	},
 
+	login: function (req, res) {
+	    var bcrypt = require('bcrypt');
 
+	    User.findOneByEmail(req.body.email).done(function (err, user) {
+	      if (err) res.json({ error: 'DB error' }, 500);
+
+	      if (user) {
+	        bcrypt.compare(req.body.password, user.password, function (err, match) {
+	          if (err) res.json({ error: 'Server error' }, 500);
+
+	          if (match) {
+	            // password match
+	            req.session.user = user.id;
+	            req.flash("success", "Welcome "+ user.email);
+	            res.redirect('blog');
+	          } else {
+	            // invalid password
+	            if (req.session.user) req.session.user = null;
+	            req.flash('danger', 'Invalid password!');
+	            res.redirect('login');
+	          }
+	        });
+	      } else {
+	      	req.flash('danger', 'User not found!');
+	        res.redirect('login');
+	      }
+	    });
+	},
+
+	logout: function(req, res) {
+		req.session.user = null;
+		res.redirect('/');
+	},
+
+	form: function(req, res) {
+		return res.view('user/login');
+	},
 
   /**
    * Overrides for the settings in `config/controllers.js`

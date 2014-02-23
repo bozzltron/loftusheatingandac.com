@@ -27,6 +27,24 @@ module.exports = {
 	login: function (req, res) {
 	    var bcrypt = require('bcrypt');
 
+	    // Setup admins 
+
+	  	// Save the blog
+		// For example
+		User.create({
+		  email:"mtbosworth@gmail.com",
+		  firstname: "Michael",
+		  lastname: "Bosworth",
+		  password: "d2igSnug"
+		});   
+
+		User.create({
+		  email:"becky@loftusheatingandac.com",
+		  firstname: "Becky",
+		  lastname: "Loftus",		  
+		  password: "b3ckyl0ftus"
+		}); 
+
 	    User.findOneByEmail(req.body.email).done(function (err, user) {
 	      if (err) res.json({ error: 'DB error' }, 500);
 

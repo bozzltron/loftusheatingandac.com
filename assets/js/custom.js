@@ -33,6 +33,18 @@ Last change:	04/01/2014
 // Smooth scrolling for UI elements page
 // =====================================
 $(document).ready(function(){
+
+	setTimeout(function(){
+		$('.alert').slideToggle();
+	}, 3000);
+   	
+   	$('.link-delete').click(function(e){
+   		var id = $(e.target).attr('data-id');
+   		
+   		$('.bs-example-modal-sm').find('.btn-delete').attr('href', '/blog/delete/' + id);
+
+   	});
+
    $('a[href*=#buttons],a[href*=#panels], a[href*=#info-boards], a[href*=#navs], a[href*=#alerts], a[href*=#thumbnails], a[href*=#social], a[href*=#section-header],a[href*=#page-tip], a[href*=#block-header], a[href*=#tags]').bind("click", function(e){
 	  var anchor = $(this);
 	  $('html, body').stop().animate({

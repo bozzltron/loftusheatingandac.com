@@ -24,20 +24,21 @@
 		  <hr>
 		
 			<form role="form" action="/blog/create" method="POST">
+			  <input name="id" type="hidden" value="<%= post.id %>" />
 			  <div class="form-group">
 				<label for="title">Title</label>
-				<input type="text" class="form-control" id="title" placeholder="Enter title" name="title" />
+				<input type="text" class="form-control" id="title" placeholder="Enter title" value="<%= post.title %>" name="title" />
 			  </div>
 			  <div class="form-group">
 				<label for="name">Password</label>
-				<textarea class="form-control" rows="20" name="body" placeholder="Enter blog"></textarea>
+				<textarea class="form-control" rows="20" name="body" placeholder="Enter blog"><%= post.body %></textarea>
 			  </div>
 			  <div class="form-group">
 				<label for="tags">Tags</label>
-				<input type="text" class="form-control" id="tags" placeholder="hvac, lennox, savings" name="tags" />
+				<input type="text" class="form-control" id="tags" value="<% if(post.tags){ %><%= post.tags %><% } %>" placeholder="Example : hvac, lennox, savings" name="tags" />
 			  </div>
 			  <input type='hidden' name='_csrf' value='<%= _csrf %>' />
-			  <button type="submit" class="hl-btn hl-btn-green">Login</button>
+			  <button type="submit" class="hl-btn hl-btn-green">Save</button>
 			</form>
 	
 		</div>

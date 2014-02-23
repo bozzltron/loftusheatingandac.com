@@ -76,6 +76,26 @@ module.exports.routes = {
     action: 'create'
   },
 
+  'get /blog/edit/:id': {
+    controller: 'blog',
+    action: 'editForm'
+  },
+
+  'get /blog/delete/:id': {
+    controller: 'blog',
+    action: 'delete'
+  },
+
+  'get /blog/import': {
+    controller: 'blog',
+    action: 'importForm'
+  },
+
+  'post /blog/import': {
+    controller: 'blog',
+    action: 'import'
+  },
+
   'get /faq': {
     view: 'faq/index'
   },

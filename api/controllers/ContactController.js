@@ -54,14 +54,12 @@ module.exports = {
 
   },
 
-
-
-
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to ContactController)
    */
-  _config: {}
+  _config: {},
 
+  shortcuts: false
   
 };

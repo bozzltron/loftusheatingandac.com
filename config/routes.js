@@ -62,7 +62,18 @@ module.exports.routes = {
   },
 
   'get /blog': {
-    view: 'blog/index'
+    controller: 'blog',
+    action: 'blog'
+  },
+
+  'get /blog/create': {
+    controller: 'blog',
+    action: 'form'
+  },
+
+  'post /blog/create': {
+    controller: 'blog',
+    action: 'create'
   },
 
   'get /faq': {

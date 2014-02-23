@@ -15,69 +15,39 @@
 	  <div class="row">
 	    <div class="col-sm-8">
 		  <div class="timeline-block">
-		  <!-- First blog post -->
+		 
+		  <% _.each(posts, function(post) { %>
+
 		    <div class="blog-summary">
-			  <h4 class="new-story"><a href="blog-post.html">HighLand - a new responsive Bootstrap 3 template</a></h4>
-			  <time datetime="2013-11-10" class="timestamp hidden-xs">Nov 10, 2013</time>
+			  <h4><a href="#"><%= post.title %></a></h4>
+			  <% if(session.user) { %>
+				  <div class="pull-right">
+				  <a href="/blog/edit"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+				  <a href="/blog/delete"><span class="glyphicon glyphicon-remove-circle"></span> Delete</a>
+				  </div>
+			  <% } %>
+			  <time datetime="2013-11-10" class="timestamp hidden-xs"><%= post.createAtShortDate %></time>
 			  <ul class="text-muted list-inline">
 				<li><i class="fa fa-user"></i> <a href="profile.html">Administrator</a></li>
-				<li><i class="fa fa-calendar"></i> November 10, 2013</li>
-				<li><i class="fa fa-comments-o"></i> 21 comments</li>
+				<li><i class="fa fa-calendar"></i> <%= post.createdAtDate %></li>
 			  </ul>
 			  <hr>
 			  <p class="blog-summary-text">
-				<img class="pull-right img-responsive blog-img" alt="Blog Image" src="img/works1.jpg">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur urna at neque mollis sagittis. Vivamus viverra justo in dui vulputate tincidunt in eu magna. Ut ut risus pretium, varius felis a, congue metus. Nam aliquam pretium eros, et venenatis sapien porttitor at. Nunc bibendum ipsum sit amet euismod sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam varius justo sed velit dictum feugiat. Sed tempus eros quis eleifend posuere. Fusce tempus euismod sem vitae porta. Vestibulum eget mi suscipit, ultrices turpis quis, ultricies ipsum. Pellentesque et facilisis odio. Vivamus et mauris consequat, rhoncus risus vitae, porttitor dui.
+				<%= post.body %> 
+				Nunc consectetur urna at neque mollis sagittis. Vivamus viverra justo in dui vulputate tincidunt in eu magna. Ut ut risus pretium, varius felis a, congue metus. Nam aliquam pretium eros, et venenatis sapien porttitor at. Nunc bibendum ipsum sit amet euismod sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam varius justo sed velit dictum feugiat. Sed tempus eros quis eleifend posuere. Fusce tempus euismod sem vitae porta. Vestibulum eget mi suscipit, ultrices turpis quis, ultricies ipsum. Pellentesque et facilisis odio. Vivamus et mauris consequat, rhoncus risus vitae, porttitor dui.
 			  </p>
+
 			  <p class="tags">
-				<a href="#">Bootstrap</a>
-				<a href="#">HTML5</a>
-				<a href="#">CSS</a>
-				<a href="#">jQuery</a>
+			    <% if(post.tags) { %>
+			    <% _.each(post.tags.split(','), function(tag){ %>
+			    	<a href="#"><%= tag %></a>
+			    <% }); %>
+			    <% } %>
 			  </p>
 		    </div>
-		    <!-- Second blog post -->
-		    <div class="blog-summary">
-			  <h4><a href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></h4>
-			  <time datetime="2013-09-10" class="timestamp hidden-xs">Nov 09, 2013</time>
-			  <ul class="text-muted list-inline">
-				<li><i class="fa fa-user"></i> <a href="profile.html">Administrator</a></li>
-				<li><i class="fa fa-calendar"></i> November 9, 2013</li>
-				<li><i class="fa fa-comments-o"></i> 10 comments</li>
-			  </ul>
-			  <hr>
-			  <p class="blog-summary-text">
-				<img class="pull-left img-responsive blog-img" alt="Blog Image" src="img/works2.jpg">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur urna at neque mollis sagittis. Vivamus viverra justo in dui vulputate tincidunt in eu magna. Ut ut risus pretium, varius felis a, congue metus. Nam aliquam pretium eros, et venenatis sapien porttitor at. Nunc bibendum ipsum sit amet euismod sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam varius justo sed velit dictum feugiat. Sed tempus eros quis eleifend posuere. Fusce tempus euismod sem vitae porta. Vestibulum eget mi suscipit, ultrices turpis quis, ultricies ipsum. Pellentesque et facilisis odio. Vivamus et mauris consequat, rhoncus risus vitae, porttitor dui.
-			  </p>
-			  <p class="tags">
-				<a href="#">Bootstrap</a>
-				<a href="#">HTML5</a>
-				<a href="#">CSS</a>
-				<a href="#">jQuery</a>
-			  </p>
-		    </div>
-		    <!-- Third blog post -->
-			<div class="blog-summary">
-			  <h4><a href="blog-post.html">Nulla dapibus lorem sed felis placerat fringilla</a></h4>
-			  <time datetime="2013-08-10" class="timestamp hidden-xs">Nov 08, 2013</time>
-			  <ul class="text-muted list-inline">
-				<li><i class="fa fa-user"></i> <a href="profile.html">Administrator</a></li>
-				<li><i class="fa fa-calendar"></i> November 8, 2013</li>
-				<li><i class="fa fa-comments-o"></i> 6 comments</li>
-			  </ul>
-			  <hr>
-			  <p class="blog-summary-text">
-				<img class="pull-right img-responsive blog-img" alt="Blog Image" src="img/works3.jpg">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur urna at neque mollis sagittis. Vivamus viverra justo in dui vulputate tincidunt in eu magna. Ut ut risus pretium, varius felis a, congue metus. Nam aliquam pretium eros, et venenatis sapien porttitor at. Nunc bibendum ipsum sit amet euismod sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam varius justo sed velit dictum feugiat. Sed tempus eros quis eleifend posuere. Fusce tempus euismod sem vitae porta. Vestibulum eget mi suscipit, ultrices turpis quis, ultricies ipsum. Pellentesque et facilisis odio. Vivamus et mauris consequat, rhoncus risus vitae, porttitor dui.
-			  </P>
-			  <p class="tags">
-				<a href="#">Bootstrap</a>
-				<a href="#">HTML5</a>
-				<a href="#">CSS</a>
-				<a href="#">jQuery</a>
-			  </p>
-		    </div>
+
+		    <% }); %>
+
 		  </div>
 		  <!-- Pagination -->
 		  <ul class="pagination pull-right">
@@ -93,7 +63,7 @@
 		<div class="col-sm-4">
 
 		  <% if(session.user) { %>
-		  	<button type="button" class="hl-btn hl-btn-amethyst hl-btn-lg">Create Blog</button>
+		  	<a class="hl-btn hl-btn-amethyst hl-btn-lg" href="/blog/create">Create Blog</a>
 		  <% } %>
 
 		  <!-- Social Links -->

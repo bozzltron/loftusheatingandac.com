@@ -27,7 +27,7 @@ module.exports = {
   },
 
   create: function(req, res) {
-
+  	console.log("blog create");
   	var published = new Date().getTime();
 
   	if(req.body.id) {
@@ -51,6 +51,7 @@ module.exports = {
 
 	        // Report back with the new state of the chicken
 	        req.flash("success", "Successfully update your blog.");
+	        console.log("blog update");
 	        res.redirect('blog');
 	      });
 
@@ -85,7 +86,7 @@ module.exports = {
   },
 
   blog: function(req, res) {
-
+  	console.log("blog blog");
 	// Get all blogs
 	Blog.find({}).sort('published DESC').done(function(err, posts) {
 
@@ -202,19 +203,23 @@ module.exports = {
   },
 
   view: function(req, res) {
-
+    console.log("blog view");
 	// Get all blogs
 	Blog.findOne({link:req.path}).done(function(err, post) {
-
-      // Format dates
-      var moment = require("moment");
  
 	  // Error handling
 	  if (err) {
 	    return console.log(err);
 
-	  // Found  blog!
+	  // Blog not found
+	  } else if(!post){ 
+	  	return;
+	  // Blog found
 	  } else {
+
+        // Format dates
+        var moment = require("moment");
+        console.log(post);
 	  	if(post.published) {
 	  		post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
   	    	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  

@@ -66,14 +66,14 @@ module.exports.routes = {
     action: 'blog'
   },
 
-  'get /blog/:year/:month/:title': {
-    controller: 'blog',
-    action: 'view'
-  },
-
   'get /blog/create': {
     controller: 'blog',
     action: 'form'
+  },
+
+  'get /blog/:year/:month/:title': {
+    controller: 'blog',
+    action: 'view'
   },
 
   'post /blog/create': {

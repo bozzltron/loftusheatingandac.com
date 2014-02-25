@@ -33,12 +33,11 @@ module.exports = {
   	if(req.body.id) {
 
 		// Update blog
-		Blog.find({_id:req.body.id}).done(function (err, blog) {
+		Blog.findOne({_id:req.body.id}).done(function (err, blog) {
 
 	      if (err) return res.send(err,500);
 	      if (!blog) return res.send("No blogs with that id exists!", 404);
 	      
-	      blog = blog[0];
 	      blog.title = req.body.title;
 	      blog.body = req.body.body;
 	      blog.tags = req.body.tags;
@@ -88,7 +87,7 @@ module.exports = {
   blog: function(req, res) {
 
 	// Get all blogs
-	Blog.find({}).limit(10).sort('published DESC').done(function(err, posts) {
+	Blog.find({}).sort('published DESC').done(function(err, posts) {
 
       // Format dates
       var moment = require("moment");
@@ -112,20 +111,19 @@ module.exports = {
   editForm: function(req, res) {
  
 	// Update blog
-	Blog.find({_id:req.param('id')}).exec(function (err, blog) {
+	Blog.findOne({_id:req.param('id')}).exec(function (err, blog) {
       if (err) return res.send(err,500);
       if (!blog) return res.send("No blogs with that id exists!", 404);
-      console.log(blog[0]);
-      res.view('blog/create', {post:blog[0]});
+      res.view('blog/create', {post:blog});
   	});
   },
 
   delete: function(req, res) {
   	// Lookup a user
-	Blog.find({_id:req.param('id')}).done(function(err, blog) {
+	Blog.findOne({_id:req.param('id')}).done(function(err, blog) {
 
 	  	// destroy the record
-	  	blog[0].destroy(function(err) {
+	  	blog.destroy(function(err) {
 	    	// record has been removed
 	    	req.flash("success", "Successfully delete your blog");
 	    	res.redirect('blog');
@@ -204,10 +202,6 @@ module.exports = {
   },
 
   view: function(req, res) {
-  	console.log(req.param('year'));
-  	console.log(req.param('month'));
-  	console.log(req.param('title'));
-  	console.log(req.path);
 
 	// Get all blogs
 	Blog.findOne({link:req.path}).done(function(err, post) {
@@ -216,8 +210,7 @@ module.exports = {
       var moment = require("moment");
 
   	  post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-  	  post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
-		console.log(post);       
+  	  post.createAtShortDate = moment(post.published).format('MMM D, YYYY');   
 
 	  // Error handling
 	  if (err) {

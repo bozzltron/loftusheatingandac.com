@@ -215,8 +215,10 @@ module.exports = {
 
 	  // Found  blog!
 	  } else {
-	  	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-  	    post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  
+	  	if(post.published) {
+	  		post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
+  	    	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  
+  		}
 	    return res.view('blog/view', {post: post});
 	  }
 	});

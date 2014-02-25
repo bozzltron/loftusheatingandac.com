@@ -37,6 +37,10 @@
 				<label for="tags">Tags</label>
 				<input type="text" class="form-control" id="tags" value="<% if(post.tags){ %><%= post.tags %><% } %>" placeholder="Example : hvac, lennox, savings" name="tags" />
 			  </div>
+			  <div class="form-group">
+				<label for="link">Link</label>
+				<input type="text" class="form-control" id="link" value="<% if(post.link){ %><%= post.link %><% } %>" name="link" />
+			  </div>			  
 			  <input type='hidden' name='_csrf' value='<%= _csrf %>' />
 			  <button type="submit" class="hl-btn hl-btn-green">Save</button>
 			</form>

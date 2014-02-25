@@ -21,8 +21,8 @@ module.exports.policies = {
   BlogController : {
   	
   	'*': ['isAuthenticated', 'flash'],
-  	blog: 'flash'
-
+  	blog: 'flash',
+  	view: 'flash'
   },
 
   UserController : {

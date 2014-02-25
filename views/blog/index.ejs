@@ -24,7 +24,7 @@
 		  <% _.each(posts, function(post) { %>
 
 		    <div class="blog-summary">
-			  <h4><a href="/blog/edit/<%= post.id %>"><%= post.title %></a></h4>
+			  <h4><a href="<%= post.link %>"><%= post.title %></a></h4>
 			  <% if(session.user) { %>
 				  <div class="pull-right">
 					  <a href="/blog/edit/<%= post.id %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a>&nbsp;&nbsp;

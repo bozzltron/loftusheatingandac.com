@@ -42,6 +42,7 @@ module.exports = {
 	      blog.title = req.body.title;
 	      blog.body = req.body.body;
 	      blog.tags = req.body.tags;
+	      blog.link = req.body.link;
 	      blog.updated = published;
 	      blog.userId = req.session.user;
 
@@ -199,6 +200,34 @@ module.exports = {
 
 	importReq.flash("info", "Imported " + success + " of " + (success+failure));
 	importRes.redirect('/blog/import');
+
+  },
+
+  view: function(req, res) {
+  	console.log(req.param('year'));
+  	console.log(req.param('month'));
+  	console.log(req.param('title'));
+  	console.log(req.path);
+
+	// Get all blogs
+	Blog.findOne({link:req.path}).done(function(err, post) {
+
+      // Format dates
+      var moment = require("moment");
+
+  	  post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
+  	  post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
+		console.log(post);       
+
+	  // Error handling
+	  if (err) {
+	    return console.log(err);
+
+	  // Found multiple users!
+	  } else {
+	    return res.view('blog/view', {post: post});
+	  }
+	});
 
   },
 

@@ -6,7 +6,7 @@
         your `sails.config.appName` to show that you can inject data into layouts
         exactly the same way as with your other view templates.
     -->
-    <title><%- title %></title>
+    <title>Loftus Heating and AC</title>
 
     <meta charset="utf-8">
     <!-- Viewport mobile tag for sensible mobile support -->
@@ -85,15 +85,9 @@
             <li><a href="/faq">FAQ</a></li>
             <li class="hidden-sm hidden-md"><a href="/contact">Contact us</a></li>
             <!-- Profile links for extra small screens -->
-            <li class="visible-xs"><a href="sign-in.html">Sign In</a></li>
+            <li class="visible-xs"><a href="/login">Sign In</a></li>
           </ul>
           <!-- Search form for extra small screens -->
-          <form class="navbar-form navbar-left visible-xs" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="hl-btn hl-btn-blue">Go!</button>
-          </form>
           <ul class="nav navbar-nav navbar-right hidden-xs">
             <% if (!session.user) { %>
             <!-- Sign in & Sign up -->

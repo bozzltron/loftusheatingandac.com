@@ -208,16 +208,15 @@ module.exports = {
 
       // Format dates
       var moment = require("moment");
-
-  	  post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-  	  post.createAtShortDate = moment(post.published).format('MMM D, YYYY');   
-
+ 
 	  // Error handling
 	  if (err) {
 	    return console.log(err);
 
-	  // Found multiple users!
+	  // Found  blog!
 	  } else {
+	  	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
+  	    post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  
 	    return res.view('blog/view', {post: post});
 	  }
 	});

@@ -1502,3 +1502,8 @@ li.account p{
     width: 360px;
   }
 }
+
+.media-post-body{
+height:42px;
+text-overflow:ellipsis;
+}

@@ -31,6 +31,10 @@ module.exports.policies = {
 
   ContactController: {
   	'*': 'flash'
+  },
+
+  HomeController: {
+  	'index': true
   }
 
 };

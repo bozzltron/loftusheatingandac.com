@@ -74,11 +74,9 @@
 			<div class="panel-body">
 			  <div class="recent-blogs">
 			    <ul>
-				  <li><a href="blog-post.html" class="new-story">HighLand - a new responsive Bootstrap 3 template</a></li>
-				  <li><a href="blog-post.html" class="new-story">Lorem ipsum dolor sit amet, consectetur adipiscing elit</a></li>
-				  <li><a href="blog-post.html">Nulla dapibus lorem sed felis placerat fringilla</a></li>
-				  <li><a href="blog-post.html">Praesent eget nibh quis arcu iaculis commodo et at lectus</a></li>
-				  <li><a href="blog-post.html">Etiam a enim ut odio laoreet viverra</a></li>
+			      <% _.each(mostrecent, function(post, index){ %>
+				  	<li><a href="<%= post.link %>" class="<% if(index == 0){ %>new-story<% } %>"><%= post.title %></a></li>
+			      <% }); %>
 				</ul>
 			  </div>
 			</div>

@@ -86,26 +86,54 @@ module.exports = {
   },
 
   blog: function(req, res) {
-  	console.log("blog blog");
-	// Get all blogs
-	Blog.find({}).sort('published DESC').done(function(err, posts) {
 
-      // Format dates
-      var moment = require("moment");
-      _.each(posts, function(post){
-      	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
-      });
+  	var async = require('async');
+	async.parallel([
 
-	  // Error handling
-	  if (err) {
-	    return console.log(err);
+	    function(callback){
 
-	  // Found multiple users!
-	  } else {
-	    return res.view('blog/index', {posts: posts});
-	  }
-	});
+			// Get all blogs
+			Blog.find({}).sort('published DESC').done(function(err, posts) {
+
+		      // Format dates
+		      var moment = require("moment");
+		      _.each(posts, function(post){
+		      	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
+		      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
+		      });
+
+			  // Error handling
+			  if (err) {
+			    return console.log(err);
+
+			  // Found multiple users!
+			  } else {
+			    callback(null, posts);
+			  }
+			});
+
+	    },
+	    function(callback){
+
+	    	// Get most recent blogs
+		    Blog.find({}).limit(5).sort('published DESC').done(function(err, posts) {
+
+		      // Error handling
+		      if (err) {
+		        return console.log(err);
+
+		      // Found multiple users!
+		      } else {
+		        callback(null, posts);
+		      }
+		    });
+
+	    }
+	],
+	// optional callback
+	function(err, results){
+	    return res.view('blog/index', {posts: results[0], mostrecent: results[1]});
+	});	
 
   },
 
@@ -203,29 +231,58 @@ module.exports = {
   },
 
   view: function(req, res) {
-    console.log("blog view");
-	// Get all blogs
-	Blog.findOne({link:req.path}).done(function(err, post) {
- 
-	  // Error handling
-	  if (err) {
-	    return console.log(err);
 
-	  // Blog not found
-	  } else if(!post){ 
-	  	return;
-	  // Blog found
-	  } else {
+  	var async = require('async');
+	async.parallel([
 
-        // Format dates
-        var moment = require("moment");
-        console.log(post);
-	  	if(post.published) {
-	  		post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-  	    	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  
-  		}
-	    return res.view('blog/view', {post: post});
-	  }
+	    function(callback){
+
+			// Get the specific blog post
+			Blog.findOne({link:req.path}).done(function(err, post) {
+		 
+			  // Error handling
+			  if (err) {
+			    return console.log(err);
+
+			  // Blog not found
+			  } else if(!post){ 
+			  	return;
+			  // Blog found
+			  } else {
+
+		        // Format dates
+		        var moment = require("moment");
+		       
+			  	if(post.published) {
+			  		post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
+		  	    	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  
+		  		}
+
+		  		callback(null,post);
+			  }
+			});
+
+	    },
+	    function(callback){
+
+	    	// Get most recent blogs
+		    Blog.find({}).limit(5).sort('published DESC').done(function(err, posts) {
+
+		      // Error handling
+		      if (err) {
+		        return console.log(err);
+
+		      // Found multiple users!
+		      } else {
+		        callback(null, posts);
+		      }
+		    });
+
+	    }
+	],
+	// optional callback
+	function(err, results){
+	    return res.view('blog/view', {post: results[0], mostrecent: results[1]});
 	});
 
   },

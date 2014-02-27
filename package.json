@@ -14,7 +14,8 @@
     "bcrypt": "~0.7.7",
     "moment": "~2.5.1",
     "request": "~2.34.0",
-    "feedparser": "~0.16.6"
+    "feedparser": "~0.16.6",
+    "async": "~0.2.10"
   },
   "scripts": {
     "start": "node app.js",

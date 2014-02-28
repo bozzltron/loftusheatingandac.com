@@ -14,7 +14,7 @@
           <description><![CDATA[<%= post.body %>]]></description>
           <link>http://www.loftusheatingandac.com<%= post.link %></link>
           <guid isPermaLink="true">http://www.loftusheatingandac.com<%= post.link %></guid>
-          <pubDate><% post.published %></pubDate>
+          <pubDate><%= post.createdAt %></pubDate>
         </item>        
         <% }); %>
 

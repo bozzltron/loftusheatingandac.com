@@ -102,6 +102,11 @@ module.exports.routes = {
     action: 'import'
   },
 
+  'get /rss': {
+    controller: 'blog',
+    action: 'rss'
+  },
+
   'get /faq': {
     view: 'faq/index'
   },

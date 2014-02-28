@@ -287,6 +287,24 @@ module.exports = {
 
   },
 
+  rss: function(req, res) {
+
+	// Get all blogs
+	Blog.find({}).sort('published DESC').done(function(err, posts) {
+
+	  // Error handling
+	  if (err) {
+	    return console.log(err);
+
+	  // Found multiple users!
+	  } else {
+	  	res.set({'Content-Type': 'application/rss+xml'});
+		return res.view('blog/rss', {posts: posts, _layoutFile:null});
+	  }
+	});
+
+  },
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to BlogController)

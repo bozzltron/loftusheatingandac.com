@@ -22,7 +22,8 @@ module.exports.policies = {
   	
   	'*': ['isAuthenticated', 'flash'],
   	blog: 'flash',
-  	view: 'flash'
+  	view: 'flash',
+  	rss: true
   },
 
   UserController : {

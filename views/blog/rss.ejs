@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+      <channel>
+        <title>Loftus Heating and AC</title>
+        <description>Think energy efficient, Think comfort, Think of your friends at Loftus Heating</description>
+        <link>http://www.loftusheatingandac.com/rss</link>
+        <language>en</language>
+        <copyright>Loftus Heating and AC</copyright>
+        <atom:link href="http://www.loftusheatingandac.com/rss" rel="self" type="application/rss+xml" />
+
+        <% _.each(posts, function(post){ %>
+        <item>
+          <title><%= post.title %></title>
+          <description><%= post.body %></description>
+          <link>http://www.loftusheatingandac.com<%= post.link %></link>
+          <guid isPermaLink="true">http://www.loftusheatingandac.com<%= post.link %></guid>
+          <pubDate><% post.createdAt %></pubDate>
+        </item>        
+        <% }); %>

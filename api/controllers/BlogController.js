@@ -304,7 +304,8 @@ module.exports = {
        
        	_.each(posts, function(post) {
 		  	if(post.published) {
-		  		post.publishedDate = moment(post.published).format(); 
+		  		// Format date RFC822
+		  		post.publishedDate = moment(post.published).format('ddd, DD MMM YYYY HH:mm:ss ZZ'); 
 	  		}
   		});
 

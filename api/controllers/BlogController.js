@@ -299,7 +299,16 @@ module.exports = {
 	  // Found multiple users!
 	  } else {
 	  	res.set({'Content-Type': 'application/xml'});
-		return res.view('blog/rss', {posts: posts, _layoutFile:null});
+
+        var moment = require("moment");
+       
+       	_.each(posts, function(post) {
+		  	if(post.published) {
+		  		post.publishedDate = moment(post.published).format('MMMM Do, YYYY'); 
+	  		}
+  		});
+
+		return res.view('blog/rss', {host: req.get('host'), posts: posts, _layoutFile:null});
 	  }
 	});
 

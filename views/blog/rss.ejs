@@ -3,18 +3,18 @@
       <channel>
         <title>Loftus Heating and AC</title>
         <description>Think energy efficient, Think comfort, Think of your friends at Loftus Heating</description>
-        <link>http://www.loftusheatingandac.com/rss</link>
+        <link>http://www.<%= host %>/rss</link>
         <language>en</language>
         <copyright>Loftus Heating and AC</copyright>
-        <atom:link href="http://www.loftusheatingandac.com/rss" rel="self" type="application/rss+xml" />
+        <atom:link href="http://www.<%= host %>/rss" rel="self" type="application/rss+xml" />
 
         <% _.each(posts, function(post){ %>
         <item>
           <title><%= post.title %></title>
           <description><![CDATA[<%= post.body %>]]></description>
-          <link>http://www.loftusheatingandac.com<%= post.link %></link>
-          <guid isPermaLink="true">http://www.loftusheatingandac.com<%= post.link %></guid>
-          <pubDate><%= post.createdAt %></pubDate>
+          <link>http://www.<%= host %><%= post.link %></link>
+          <guid isPermaLink="true">http://www.<%= host %><%= post.link %></guid>
+          <pubDate><%= post.publishedDate %></pubDate>
         </item>        
         <% }); %>
 

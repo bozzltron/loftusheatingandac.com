@@ -298,7 +298,7 @@ module.exports = {
 
 	  // Found multiple users!
 	  } else {
-	  	res.set({'Content-Type': 'application/rss+xml'});
+	  	res.set({'Content-Type': 'application/xml'});
 		return res.view('blog/rss', {posts: posts, _layoutFile:null});
 	  }
 	});

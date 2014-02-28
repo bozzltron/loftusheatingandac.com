@@ -304,7 +304,7 @@ module.exports = {
        
        	_.each(posts, function(post) {
 		  	if(post.published) {
-		  		post.publishedDate = moment(post.published).format('MMMM Do, YYYY'); 
+		  		post.publishedDate = moment(post.published).format(); 
 	  		}
   		});
 

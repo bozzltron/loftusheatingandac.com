@@ -35,7 +35,8 @@ module.exports.policies = {
   },
 
   HomeController: {
-  	'index': true
+  	'index': true,
+    'alternate': true
   }
 
 };

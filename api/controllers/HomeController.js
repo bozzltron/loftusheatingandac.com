@@ -38,6 +38,22 @@ module.exports = {
     
   },
 
+   alternate: function (req, res) {
+      
+    Blog.find({}).limit(3).sort('published DESC').done(function(err, posts) {
+
+      // Error handling
+      if (err) {
+        return console.log(err);
+
+      // Found multiple users!
+      } else {
+        return res.view('home/alternate', {posts: posts});
+      }
+    });
+    
+  },
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to HomeController)

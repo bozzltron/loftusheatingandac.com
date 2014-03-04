@@ -23,7 +23,9 @@ module.exports.policies = {
   	'*': ['isAuthenticated', 'flash'],
   	blog: 'flash',
   	view: 'flash',
-  	rss: true
+  	rss: true,
+    tags: true,
+    tag: true
   },
 
   UserController : {
@@ -35,8 +37,7 @@ module.exports.policies = {
   },
 
   HomeController: {
-  	'index': true,
-    'alternate': true
+  	'index': true
   }
 
 };

@@ -34,11 +34,6 @@ module.exports.routes = {
   // (This would also work if you had a file at: `/views/home.ejs`)
   '/': {
     controller: 'home',
-    action: 'alternate'
-  },
-
-  'get /home2' : {
-    controller: 'home',
     action: 'index'
   },
 
@@ -105,6 +100,16 @@ module.exports.routes = {
   'post /blog/import': {
     controller: 'blog',
     action: 'import'
+  },
+
+  'get /blog/tags' : {
+    controller: 'blog',
+    action: 'tags'
+  },
+
+  'get /blog/tags/:tag' : {
+    controller: 'blog',
+    action: 'tag'
   },
 
   'get /rss': {

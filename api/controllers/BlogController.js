@@ -315,6 +315,45 @@ module.exports = {
 
   },
 
+  tags: function(req, res) {
+
+	// Get all blogs
+	Blog.find({tags:{$exists:true}}, {tags: 1 }).done(function(err, tags) {
+
+	  // Error handling
+	  if (err) {
+	    return console.log(err);
+
+	  // Found multiple users!
+	  } else {
+
+       	return res.json(tags);
+		//return res.view('blog/rss', {host: req.get('host'), posts: posts, _layoutFile:null});
+	  }
+	});
+
+  },
+
+  tag: function(req, res) {
+
+	// Get all blogs with the specified tag
+	Blog.find({"tags" : {$regex : ".*"+ req.param('tag')+ ".*"}}).done(function(err, tags) {
+
+	  // Error handling
+	  if (err) {
+	    return console.log(err);
+
+	  // Found multiple users!
+	  } else {
+
+       	return res.json(tags);
+		//return res.view('blog/rss', {host: req.get('host'), posts: posts, _layoutFile:null});
+	  }
+
+	});
+
+  },
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to BlogController)

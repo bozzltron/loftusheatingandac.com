@@ -50,7 +50,7 @@
 			  <p class="tags">
 			    <% if(post.tags) { %>
 			    <% _.each(post.tags, function(tag){ %>
-			    	<a href="#"><%= tag %></a>
+			    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
 			    <% }); %>
 			    <% } %>
 			  </p>

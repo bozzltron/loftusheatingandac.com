@@ -13,7 +13,24 @@ module.exports = {
   	/* e.g.
   	nickname: 'string'
   	*/
+    tag : ""
     
-  }
+  },
+
+  beforeCreate: function (attrs, next) {
+  	// Save tags as an array
+    if(attrs.tags) {
+    	attrs.tags = attrs.tags.replace(/\s+/g, '').split(",");
+    }
+    next();
+  },    
+
+  beforeUpdate: function (updated, next) {
+  	// Save tags as an array
+    if(updated.tags) {
+    	updated.tags = updated.tags.replace(/\s+/g, '').split(",");
+    }
+    next();
+  },    
 
 };

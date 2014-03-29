@@ -25,7 +25,7 @@ module.exports.policies = {
   	view: 'flash',
   	rss: true,
     tags: true,
-    tag: true
+    tag: 'flash'
   },
 
   UserController : {

@@ -15,6 +15,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+//var _ = require("underscore");
+
 module.exports = {
     
   form: function(req, res) {
@@ -27,7 +29,7 @@ module.exports = {
   },
 
   create: function(req, res) {
-  	console.log("blog create");
+  
   	var published = new Date().getTime();
 
   	if(req.body.id) {
@@ -60,7 +62,6 @@ module.exports = {
   	} else {
 
 	  	// Save the blog
-		// For example
 		Blog.create({
 		  title: req.body.title,
 		  body: req.body.body,
@@ -86,7 +87,7 @@ module.exports = {
   },
 
   blog: function(req, res) {
-
+  	var BlogController = this.sails.controllers.blog;
   	var async = require('async');
 	async.parallel([
 
@@ -113,26 +114,23 @@ module.exports = {
 			});
 
 	    },
-	    function(callback){
+	    function(callback) { 
 
 	    	// Get most recent blogs
-		    Blog.find({}).limit(5).sort('published DESC').done(function(err, posts) {
+		    BlogController._getblogs({}, 5, callback);
 
-		      // Error handling
-		      if (err) {
-		        return console.log(err);
+	    },
+	    function(callback) {
 
-		      // Found multiple users!
-		      } else {
-		        callback(null, posts);
-		      }
-		    });
+	    	// Get tags
+		    BlogController._gettags(callback);	
 
 	    }
 	],
 	// optional callback
 	function(err, results){
-	    return res.view('blog/index', {posts: results[0], mostrecent: results[1]});
+		console.log(results);
+	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:false, tags:results[2]});
 	});	
 
   },
@@ -189,7 +187,9 @@ module.exports = {
 
 	feedparser.on('error', function(error) {
 	  // always handle errors
+	  console.log('error', error);
 	});
+
 	feedparser.on('readable', function() {
 	  // This is where the action is!
 	  var stream = this
@@ -231,7 +231,7 @@ module.exports = {
   },
 
   view: function(req, res) {
-
+  	var BlogController = this.sails.controllers.blog;
   	var async = require('async');
 	async.parallel([
 
@@ -266,23 +266,19 @@ module.exports = {
 	    function(callback){
 
 	    	// Get most recent blogs
-		    Blog.find({}).limit(5).sort('published DESC').done(function(err, posts) {
+		    BlogController._getblogs({}, 5, callback);
 
-		      // Error handling
-		      if (err) {
-		        return console.log(err);
+	    },
+	    function(callback) {
 
-		      // Found multiple users!
-		      } else {
-		        callback(null, posts);
-		      }
-		    });
+	    	// Get tags
+		    BlogController._gettags(callback);	
 
 	    }
 	],
 	// optional callback
 	function(err, results){
-	    return res.view('blog/view', {post: results[0], mostrecent: results[1]});
+	    return res.view('blog/view', {post: results[0], mostrecent: results[1], tags: results[2]});
 	});
 
   },
@@ -290,18 +286,9 @@ module.exports = {
   rss: function(req, res) {
 
 	// Get all blogs
-	Blog.find({}).sort('published DESC').done(function(err, posts) {
+	var BlogController = this.sails.controllers.blog;
+	BlogController._getblogs({}, null, function(err, posts) {
 
-	  // Error handling
-	  if (err) {
-	    return console.log(err);
-
-	  // Found multiple users!
-	  } else {
-	  	res.set({'Content-Type': 'application/xml'});
-
-        var moment = require("moment");
-       
        	_.each(posts, function(post) {
 		  	if(post.published) {
 		  		// Format date RFC822
@@ -310,47 +297,103 @@ module.exports = {
   		});
 
 		return res.view('blog/rss', {host: req.get('host'), posts: posts, _layoutFile:null});
-	  }
+	  
 	});
 
   },
 
   tags: function(req, res) {
 
-	// Get all blogs
+  	var BlogController = this.sails.controllers.blog;
+  	BlogController._gettags(function(err, tags){
+		return res.json(tags);
+  	})
+
+  },
+
+  tag: function(req, res) {
+
+  	var BlogController = this.sails.controllers.blog;
+  	var async = require('async');
+	async.parallel([
+
+	    function(callback){
+
+			// Get all blogs with the specified tag
+			BlogController._getblogs({"tags" : req.param('tag')}, 5, callback);
+
+	    },
+	    function(callback){
+
+	    	// Get most recent blogs
+		    BlogController._getblogs({}, 5, callback);
+
+	    },
+	    function(callback) {
+
+	    	// Get tags
+		    BlogController._gettags(callback);	
+
+	    }
+	],
+	// optional callback
+	function(err, results){
+	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:req.param('tag'), tags:results[2]});
+	});	
+
+  },
+
+  _gettags: function(callback) {
+
+	// Get all tags
 	Blog.find({tags:{$exists:true}}, {tags: 1 }).done(function(err, tags) {
 
 	  // Error handling
 	  if (err) {
 	    return console.log(err);
 
-	  // Found multiple users!
+	  // Found tags
 	  } else {
 
-       	return res.json(tags);
-		//return res.view('blog/rss', {host: req.get('host'), posts: posts, _layoutFile:null});
+	  	// Collect all user entered tags
+	  	var allTags = [];
+	  	_.each(tags, function(tag){
+	  		_.each(tag.tags, function(postTag){
+	  			allTags.push(postTag);
+	  		});
+	  	});
+	  	
+	  	// Filter to unique tags only
+	  	var uniqTags = _.uniq(allTags);
+
+       	callback(null, uniqTags);
+
 	  }
 	});
 
   },
 
-  tag: function(req, res) {
+  _getblogs: function(query, limit, callback) {
 
-	// Get all blogs with the specified tag
-	Blog.find({"tags" : {$regex : ".*"+ req.param('tag')+ ".*"}}).done(function(err, tags) {
+  	var limit = limit || false;
 
-	  // Error handling
-	  if (err) {
-	    return console.log(err);
+  	function response(err, posts) {
 
-	  // Found multiple users!
-	  } else {
+      // Error handling
+      if (err) {
+        return console.log(err);
 
-       	return res.json(tags);
-		//return res.view('blog/rss', {host: req.get('host'), posts: posts, _layoutFile:null});
-	  }
+      // Found multiple users!
+      } else {
+        callback(null, posts);
+      }
+    }
 
-	});
+    if(limit) {
+    	Blog.find(query).limit(limit).sort('published DESC').done(response);
+    } else {
+    	Blog.find(query).sort('published DESC').done(response);
+    }
 
   },
 

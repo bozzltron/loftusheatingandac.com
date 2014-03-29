@@ -27,8 +27,8 @@
 	
 		  <p class="tags">
 		    <% if(post.tags) { %>
-			    <% _.each(post.tags.split(','), function(tag){ %>
-			    	<a href="#"><%= tag %></a>
+			    <% _.each(post.tags, function(tag){ %>
+			    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
 			    <% }); %>
 		    <% } %>
 		  </p>		
@@ -57,12 +57,9 @@
 		  <h3 class="hl">Story tags</h3>
 		  <hr>
 		  <p class="tags">
-			<a href="#">Bootstrap</a>
-			<a href="#">HTML5</a>
-			<a href="#">Highland</a>
-			<a href="#">Blog post</a>
-			<a href="#">CSS3</a>
-			<a href="#">jQuery</a>
+		    <% _.each(tags, function(tag){ %>
+		    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
+		    <% }); %>	
 		  </p>
 		  <br />
 		  

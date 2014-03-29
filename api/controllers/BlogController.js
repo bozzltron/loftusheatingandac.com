@@ -320,7 +320,18 @@ module.exports = {
 	    function(callback){
 
 			// Get all blogs with the specified tag
-			BlogController._getblogs({"tags" : req.param('tag')}, 5, callback);
+			BlogController._getblogs({"tags" : req.param('tag')}, 5, function(err, blogs){
+
+				// Format dates
+			    var moment = require("moment");
+			    _.each(blogs, function(post){
+			      	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
+			      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
+			    });
+
+			    callback(null, blogs);
+
+			});
 
 	    },
 	    function(callback){

@@ -26,8 +26,20 @@ module.exports = {
 
     var date = new Date();
 
+    // Build a fancy url from the title
+    var title = attrs.title;
+
+    // Replace spaces with
+    title = title.replace(/\s+/g, '-');
+
+    // set to all lower case
+    title = title.toLowerCase();
+
+    // remove all special chars
+    title = title.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+
     // Generate fancy url
-    attrs.link = '/' + ['blog', date.getFullYear(),  date.getMonth() + 1, attrs.title.replace(/\s+/g, '-').toLowerCase()].join('/');
+    attrs.link = '/' + ['blog', date.getFullYear(),  date.getMonth() + 1, title].join('/');
 
     next();
   },    

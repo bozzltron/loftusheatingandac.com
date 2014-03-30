@@ -98,7 +98,7 @@
 		  <% } %>
 
 		  <!-- Social Links -->
-		  <h3 class="hl">Bookmark</h3>
+<!-- 		  <h3 class="hl">Bookmark</h3>
 		  <hr>
 		  <div class="social-icons social-icons-default">
 			<ul>
@@ -114,8 +114,18 @@
 				<li class="vimeo"><a href="#"><i class="fa fa-vimeo-square"></i></a></li>
 			</ul>
 			<div class="clearfix"></div>
-		  </div>
+		  </div> -->
 		  
+		  <!-- Tags -->
+		  <h3 class="hl">Popular Tags</h3>
+		  <hr>
+		  <p class="tags">
+		    <% _.each(tags, function(tag){ %>
+		    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
+		    <% }); %>		  
+		  </p>
+		  <br />
+
 		  <!-- Recently Added -->
 		  <div class="panel panel-default">
 			<div class="panel-heading">
@@ -132,15 +142,6 @@
 			</div>
 		  </div>
 
-		  <!-- Tags -->
-		  <h3 class="hl">Popular Tags</h3>
-		  <hr>
-		  <p class="tags">
-		    <% _.each(tags, function(tag){ %>
-		    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
-		    <% }); %>		  
-		  </p>
-		  <br />
 		  
 		  <!-- Archive -->
 <!-- 		  <div class="panel panel-default">

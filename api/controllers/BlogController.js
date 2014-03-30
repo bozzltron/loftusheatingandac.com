@@ -15,7 +15,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
-//var _ = require("underscore");
+var async = require('async'),
+	marked = require('marked');
 
 module.exports = {
     
@@ -30,7 +31,7 @@ module.exports = {
 
   create: function(req, res) {
   
-  	var published = new Date().getTime();
+  	var published = new Date()
 
   	if(req.body.id) {
 
@@ -53,7 +54,7 @@ module.exports = {
 
 	        // Report back with the new state of the chicken
 	        req.flash("success", "Successfully update your blog.");
-	        console.log("blog update");
+	
 	        res.redirect('blog');
 	      });
 
@@ -87,8 +88,9 @@ module.exports = {
   },
 
   blog: function(req, res) {
+
   	var BlogController = this.sails.controllers.blog;
-  	var async = require('async');
+  
 	async.parallel([
 
 	    function(callback){
@@ -96,11 +98,15 @@ module.exports = {
 			// Get all blogs
 			Blog.find({}).sort('published DESC').done(function(err, posts) {
 
-		      // Format dates
+		      // Format for display
 		      var moment = require("moment");
 		      _.each(posts, function(post){
+		      	// Format dates
 		      	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-		      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
+		      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');
+
+		        // pass through the markdown processor
+	      		post.body = marked(post.body);
 		      });
 
 			  // Error handling
@@ -129,7 +135,6 @@ module.exports = {
 	],
 	// optional callback
 	function(err, results){
-		console.log(results);
 	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:false, tags:results[2]});
 	});	
 
@@ -206,7 +211,7 @@ module.exports = {
 	    	userId : userId,
 	    	tags : ""
 	    };
-	    console.log(blog);
+	   
 	  	// Save the blog
 		// For example
 		Blog.create(blog).done(function(err, user) {
@@ -231,8 +236,9 @@ module.exports = {
   },
 
   view: function(req, res) {
+
   	var BlogController = this.sails.controllers.blog;
-  	var async = require('async');
+  	
 	async.parallel([
 
 	    function(callback){
@@ -257,6 +263,9 @@ module.exports = {
 			  		post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
 		  	    	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');  
 		  		}
+
+	  	    	// pass through the markdown processor
+	      		post.body = marked(post.body);
 
 		  		callback(null,post);
 			  }
@@ -290,6 +299,10 @@ module.exports = {
 	BlogController._getblogs({}, null, function(err, posts) {
 
        	_.each(posts, function(post) {
+
+       		// pass through the markdown processor
+	      	body = marked(post.body);
+
 		  	if(post.published) {
 		  		// Format date RFC822
 		  		post.publishedDate = moment(post.published).format('ddd, DD MMM YYYY HH:mm:ss ZZ'); 
@@ -314,7 +327,7 @@ module.exports = {
   tag: function(req, res) {
 
   	var BlogController = this.sails.controllers.blog;
-  	var async = require('async');
+ 
 	async.parallel([
 
 	    function(callback){
@@ -322,11 +335,13 @@ module.exports = {
 			// Get all blogs with the specified tag
 			BlogController._getblogs({"tags" : req.param('tag')}, 5, function(err, blogs){
 
-				// Format dates
+				// Format output
 			    var moment = require("moment");
 			    _.each(blogs, function(post){
 			      	post.createdAtDate = moment(post.published).format('MMMM Do, YYYY');
-			      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY')
+			      	post.createAtShortDate = moment(post.published).format('MMM D, YYYY');
+  				    // pass through the markdown processor
+		      	 	post.body = marked(post.body);
 			    });
 
 			    callback(null, blogs);

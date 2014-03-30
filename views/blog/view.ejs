@@ -24,18 +24,11 @@
 		  <p class="blog-text">
 		    <%- post.body %>
 		  </p>
-	
-		  <p class="tags">
-		    <% if(post.tags) { %>
-			    <% _.each(post.tags, function(tag){ %>
-			    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
-			    <% }); %>
-		    <% } %>
-		  </p>		
+
 		</div>
 		<div class="col-sm-4">
 		  <!-- Social Links -->
-		  <h3 class="hl">Bookmark</h3>
+<!-- 		  <h3 class="hl">Bookmark</h3>
 		  <hr>
 		  <div class="social-icons social-icons-default">
 			<ul>
@@ -51,16 +44,27 @@
 				<li class="vimeo"><a href="#"><i class="fa fa-vimeo-square"></i></a></li>
 			</ul>
 			<div class="clearfix"></div>
-		  </div>
+		  </div> -->
 
 		  <!-- Tags -->
-		  <h3 class="hl">Story tags</h3>
-		  <hr>
-		  <p class="tags">
-		    <% _.each(tags, function(tag){ %>
-		    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
-		    <% }); %>	
-		  </p>
+		  <% if(post.tags && post.tags.length > 0) { %>
+			  <h3 class="hl">Story tags</h3>
+			  <hr>
+			  <p class="tags">
+			    <% _.each(post.tags, function(tag){ %>
+			    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
+			    <% }); %>	
+			  </p>
+		  <% } else { %>
+			  <h3 class="hl">Popular tags</h3>
+			  <hr>
+			  <p class="tags">
+			    <% _.each(tags, function(tag){ %>
+			    	<a href="/blog/tags/<%= tag %>"><%= tag %></a>
+			    <% }); %>	
+			  </p>
+		  <% } %>
+
 		  <br />
 		  
 		  <!-- Recently Added -->

@@ -18,10 +18,17 @@ module.exports = {
   },
 
   beforeCreate: function (attrs, next) {
+
   	// Save tags as an array
     if(attrs.tags) {
     	attrs.tags = attrs.tags.replace(/\s+/g, '').split(",");
     }
+
+    var date = new Date();
+
+    // Generate fancy url
+    attrs.link = '/' + ['blog', date.getFullYear(),  date.getMonth() + 1, attrs.title.replace(/\s+/g, '-').toLowerCase()].join('/');
+
     next();
   },    
 

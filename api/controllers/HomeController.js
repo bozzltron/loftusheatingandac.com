@@ -15,6 +15,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+var marked = require("marked");
+
 module.exports = {
     
   /**

@@ -15,7 +15,8 @@
     "moment": "~2.5.1",
     "request": "~2.34.0",
     "feedparser": "~0.16.6",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "marked": "^0.3.2"
   },
   "scripts": {
     "start": "node app.js",

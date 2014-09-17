@@ -12,6 +12,8 @@
 
 	<div class="container">
 
+		<% if(_.isObject(products.SubCategory)) { products.SubCategory = [ products.SubCategory ]; } %>
+
 		<% _.each(products.SubCategory, function(subcat){  %>
 
 			<div class="Category">
@@ -30,14 +32,16 @@
 							</th>
 							<th>&nbsp;</th>
 
-							<% if(_.isArray(subcat.CategoryRatings.CategoryRating)) { %>
+							<% if(subcat.CategoryRatings) { %>
+								<% if(_.isArray(subcat.CategoryRatings.CategoryRating)) { %>
 
-								<% _.each(subcat.CategoryRatings.CategoryRating, function(rating){  %>
-									<th><%- _.unescape(rating.Name) %></th>
-								<% }); %>
+									<% _.each(subcat.CategoryRatings.CategoryRating, function(rating){  %>
+										<th><%- _.unescape(rating.Name) %></th>
+									<% }); %>
 
-							<% } else if(_.isObject(subcat.CategoryRatings.CategoryRating)) { %>
-								<th><%- _.unescape(subcat.CategoryRatings.CategoryRating.Name) %></th>
+								<% } else if(_.isObject(subcat.CategoryRatings.CategoryRating)) { %>
+									<th><%- _.unescape(subcat.CategoryRatings.CategoryRating.Name) %></th>
+								<% } %>
 							<% } %>
 
 							<th>
@@ -64,14 +68,16 @@
 							
 							<td><%= product.New == "Y" ? 'NEW' : '' %></td>
 
-							<% if (_.isArray(product.Ratings.Rating)) { %>
-								<% _.each(product.Ratings.Rating, function(rating){  %>
-									<td><%= rating.Name %></td>
-								<% 	}); %>
-							<% } else if (_.isObject(product.Ratings.Rating)) { %>
-								<td><%= product.Ratings.Rating['$t'] %></td>
-							<% } else { %>
-								<td colspan="<%= subcat.CategoryRatings.CategoryRating.length %>">&nbsp;</td>	
+							<% if(product.Ratings) { %>
+								<% if (_.isArray(product.Ratings.Rating)) { %>
+									<% _.each(product.Ratings.Rating, function(rating){  %>
+										<td><%= rating.Name %></td>
+									<% 	}); %>
+								<% } else if (_.isObject(product.Ratings.Rating)) { %>
+									<td><%= product.Ratings.Rating['$t'] %></td>
+								<% } else { %>
+									<td colspan="<%= subcat.CategoryRatings.CategoryRating.length %>">&nbsp;</td>	
+								<% } %>
 							<% } %>
 							<td><%= product.PriceGuide ? product.PriceGuide : '' %></td>
 						</tr>

@@ -24,9 +24,10 @@
 					<a href="<%= product.Images.LargeImage %>">View Larger</a>
 					<br />
 					
-
-					<% if(product.Series.Display == "Y") { %>
-						<h2><%= product.Series['$t'] %>&nbsp;</h2>
+					<% if(product.Series) { %>
+						<% if(product.Series.Display == "Y") { %>
+							<h2><%= product.Series['$t'] %>&nbsp;</h2>
+						<% } %>
 					<% } %>
 
 					<div><%= product.OneLiner %></div>

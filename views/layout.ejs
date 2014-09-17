@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <!--
         For demonstration purposes, the `title` is dynamically set here based on
         your `sails.config.appName` to show that you can inject data into layouts
@@ -27,13 +28,13 @@
     <link rel="stylesheet" type="text/css" href="/styles/elements.css" />
     <link rel="stylesheet" type="text/css" href="/styles/custom.css" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-  
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-  <!--[if IE]>
+    <!--[if IE]>
   <style>
     .showcase {
        zoom: 0.6;
@@ -53,102 +54,123 @@
       
     -->
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-  <!-- Navbar
+    <!-- Navbar
     ============= -->
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Loftus Heating and AC</a>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Loftus Heating and AC</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about">About Us</a>
+                            </li>
+                            <li><a href="/about/guarantee">Guarantee</a>
+                            </li>
+                            <li><a href="/about/indoor-air-quality">Indoor Air Quality</a>
+                            </li>
+                            <li><a href="/about/services">Services</a>
+                            </li>
+                            <li><a href="/about/team">Team</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="/blog">Blog</a>
+                    </li>
+                    <li><a href="/faq">FAQ</a>
+                    </li>
+                    <li><a href="/products">Products</a>
+                    </li>
+                    <li class="hidden-sm hidden-md"><a href="/contact">Contact us</a>
+                    </li>
+                    <!-- Profile links for extra small screens -->
+                    <li class="visible-xs"><a href="/login">Sign In</a>
+                    </li>
+                </ul>
+                <!-- Search form for extra small screens -->
+                <ul class="nav navbar-nav navbar-right hidden-xs">
+                    <% if (!session.user) { %>
+                        <!-- Sign in & Sign up -->
+                        <li id="sign-in" class="show"><a href="/login">Sign In</a>
+                        </li>
+                        <!-- Signed in. Profile Menu -->
+                        <li id="cogs-menu" class="hidden">
+                            <a href="edit-profile.html">
+                                <i class="fa fa-gears fa-lg"></i>
+                            </a>
+                        </li>
+                        <% } else { %>
+                            <li id="profile-menu" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="account">
+                                        <div class="avatar"></div>
+                                        <p><b>Administrator</b>
+                                            <br />
+                                        </p>
+                                        <p><a href="/logout" id="sign-out">Sign out</a>
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <% } %>
+                </ul>
+            </div>
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/about/guarantee">Guarantee</a></li>
-                <li><a href="/about/indoor-air-quality">Indoor Air Quality</a></li>
-                <li><a href="/about/services">Services</a></li>
-                <li><a href="/about/team">Team</a></li>
-              </ul>
-            </li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/faq">FAQ</a></li>
-            <li class="hidden-sm hidden-md"><a href="/contact">Contact us</a></li>
-            <!-- Profile links for extra small screens -->
-            <li class="visible-xs"><a href="/login">Sign In</a></li>
-          </ul>
-          <!-- Search form for extra small screens -->
-          <ul class="nav navbar-nav navbar-right hidden-xs">
-            <% if (!session.user) { %>
-            <!-- Sign in & Sign up -->
-            <li id="sign-in" class="show"><a href="/login">Sign In</a></li>
-            <!-- Signed in. Profile Menu -->
-            <li id="cogs-menu" class="hidden">
-              <a href="edit-profile.html">
-                <i class="fa fa-gears fa-lg"></i>
-              </a>
-            </li>
-            <% } else { %>
-            <li id="profile-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li class="account">
-                  <div class="avatar"></div>
-                  <p><b>Administrator</b><br /></p>
-                  <p><a href="/logout" id="sign-out">Sign out</a></p>
-                  <div class="clearfix"></div>
-                </li>
-              </ul>
-            </li>
-            <% } %>
-          </ul>
-        </div>
-      </div>
     </div>
 
     <!-- Include the view file for the current controller/route -->
     <%- body %>
 
-    <!-- Foooter
+        <!-- Foooter
     ================== -->
-      <footer>
-        <div class="container">
-          <div class="row">
-            <!-- Contact Us 
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <!-- Contact Us 
             =================  -->
-            <div class="col-sm-4">
-              <div class="headline"><h3>Contact us</h3></div>
-              <div class="content">
-                <p>
-                Logan, Iowa 51546<br />
-                420 East 7th Street<br />
-                Phone:  (712) 644-3260<br />
-                Fax: (712) 644-2965<br />
-                Email: <a href="mailto:service@loftusheatingandac.com">service@loftusheatingandac.com</a>
-                </p>
-              </div>
-            </div>
-            <!-- Social icons 
+                    <div class="col-sm-4">
+                        <div class="headline">
+                            <h3>Contact us</h3>
+                        </div>
+                        <div class="content">
+                            <p>
+                                Logan, Iowa 51546
+                                <br />420 East 7th Street
+                                <br />Phone: (712) 644-3260
+                                <br />Fax: (712) 644-2965
+                                <br />Email: <a href="mailto:service@loftusheatingandac.com">service@loftusheatingandac.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Social icons 
             ===================== -->
-            <div class="col-sm-4">
-              <div class="headline"><h3>Go Social</h3></div>
-              <div class="content social">
-                <p>Stay in touch with us:</p>
-                <ul>
-                    <!--<li><a href="#"><i class="fa fa-twitter"></i></a></li>-->
-                    <li><a href="https://www.facebook.com/pages/Loftus-Heating-Air-Conditioning-Commercial-Refrigeration/160781217275416"><i class="fa fa-facebook"></i></a></li>
-                    <!-- <li><a href="#"><i class="fa fa-pinterest"></i></a>
+                    <div class="col-sm-4">
+                        <div class="headline">
+                            <h3>Go Social</h3>
+                        </div>
+                        <div class="content social">
+                            <p>Stay in touch with us:</p>
+                            <ul>
+                                <!--<li><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+                                <li><a href="https://www.facebook.com/pages/Loftus-Heating-Air-Conditioning-Commercial-Refrigeration/160781217275416"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <!-- <li><a href="#"><i class="fa fa-pinterest"></i></a>
                     </li>
                     <li><a href="#"><i class="fa fa-youtube"></i></a>
                     </li>
@@ -160,47 +182,50 @@
                     </li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a>
                     </li> -->
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-            </div>
-            <!-- Subscribe 
-            =============== -->
-            <div class="col-sm-4">
-              <div class="headline"><h3>Subscribe</h3></div>
-              <div class="content">
-                <p>Enter your e-mail below to subscribe to our free newsletter.<br />We promise not to bother you often!</p>
-                <form class="form" role="form">
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <div class="input-group">
-                        <label class="sr-only" for="subscribe-email">Email address</label>
-                        <input type="email" class="form-control" id="subscribe-email" placeholder="Enter email">
-                        <span class="input-group-btn">
-                          <button type="submit" class="hl-btn hl-btn-default">OK</button>
-                        </span>
-                      </div>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
-                  </div>
-                </form>
-              </div>
+                    <!-- Subscribe 
+            =============== -->
+                    <div class="col-sm-4">
+                        <div class="headline">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="content">
+                            <p>Enter your e-mail below to subscribe to our free newsletter.
+                                <br />We promise not to bother you often!</p>
+                            <form class="form" role="form">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <label class="sr-only" for="subscribe-email">Email address</label>
+                                            <input type="email" class="form-control" id="subscribe-email" placeholder="Enter email">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="hl-btn hl-btn-default">OK</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </footer>
-      <!-- Legal 
+        </footer>
+        <!-- Legal 
       ============= -->
-      <div class="legal">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <p>&copy; Loftus Heating and AC</p>
+        <div class="legal">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>&copy; Loftus Heating and AC</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
 
-    <!--
+        <!--
 
       Client-side Javascript
       ========================
@@ -210,23 +235,24 @@
 
       Here's an example of importing a few dependencies, in order:
     -->
-    <!-- Bring in the socket.io client -->
-    <script type="text/javascript" src="/js/socket.io.js"></script>
-    <!-- then beef it up with some convenience logic for talking to Sails.js -->
-    <script type="text/javascript" src="/js/sails.io.js"></script>
-    <!-- listen on socket.io for incoming messages -->
-    <script type="text/javascript" src="/js/app.js"></script>
+        <!-- Bring in the socket.io client -->
+        <script type="text/javascript" src="/js/socket.io.js"></script>
+        <!-- then beef it up with some convenience logic for talking to Sails.js -->
+        <script type="text/javascript" src="/js/sails.io.js"></script>
+        <!-- listen on socket.io for incoming messages -->
+        <script type="text/javascript" src="/js/app.js"></script>
 
-    <!-- Bootstrap core JavaScript
+        <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/custom.js"></script>
-    <script src="/js/scrolltopcontrol.js"></script><!-- Scroll to top javascript -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/custom.js"></script>
+        <script src="/js/scrolltopcontrol.js"></script>
+        <!-- Scroll to top javascript -->
 
 
-    <!--
+        <!--
 
       Looking for client-side CoffeeScript or TypeScript?
       ================================================
@@ -240,7 +266,7 @@
 
 
 
-    <!--
+        <!--
 
       Another way: The Asset Linker
       ========================
@@ -255,5 +281,6 @@
 
     -->
 
-    </body>
+</body>
+
 </html>

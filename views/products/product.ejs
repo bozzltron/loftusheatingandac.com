@@ -1,0 +1,105 @@
+  <div class="wrapper">
+    <div class="section-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+        <!-- Remove the .animated class if you don't want things to move -->
+      <h1 class="animated slideInLeft"><span><%= product.ModelName %></span></h1>
+      </div>
+    </div>
+    </div>
+    </div>
+
+	<div class="container">
+
+		<div id="ProductInfo">
+			<div id="ProductPhoto">
+				<div class="content">
+
+					
+					<a href="<%= product.Images.LargeImage %>">
+						<img class="img" src="<%= product.Images.MediumImage %>" alt="<%= product.ShortName %>" />
+					</a>
+					<br />&nbsp;<br />
+					<a href="<%= product.Images.LargeImage %>">View Larger</a>
+					<br />
+					
+
+					<% if(product.Series.Display == "Y") { %>
+						<h2><%= product.Series['$t'] %>&nbsp;</h2>
+					<% } %>
+
+					<div><%= product.OneLiner %></div>
+
+					<h3>Features</h3>
+					<% _.each(product.Features.Feature, function(feature){  %>
+						<h4><%= feature.Title %></h4>
+						<ul>
+							<%= feature.Body %>
+						</ul>
+					<% }); %>
+
+					<h3>Publications</h3>
+					<% if(_.isArray(product.Publications.Publication)) { %>
+						<%  _.each(product.Publications.Publication, function(pub){  %>
+							<a href="<%= pub.URL %>"><%= pub.Name %></a><br />
+						<% }); %>
+					<% } else if (_.isObject(product.Publications.Publication)) { %>
+						<a href="<%= product.Publications.Publication.URL %>"><%= product.Publications.Publication.Name %></a><br />
+					<% } %>
+
+					<h3>Certifications</h3>
+					<% if(_.isArray(product.Certifications.Certification)) { %>
+						<%  _.each(product.Certifications.Certification, function(cert){  %>
+							<img class="CertLogo" src="http://www.lennox.com/res/images/logo_<%= cert.Code %>.jpg" />
+						<% }); %>
+					<% } else if (_.isObject(product.Certifications.Certification)) { %>
+						<img class="CertLogo" src="http://www.lennox.com/res/images/logo_<%= product.Certifications.Certification.Code %>.jpg" />
+					<% } %>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	function basePopup(uri,width,height,winName,winArgs) {
+		/* close existing popUp window */
+		if (typeof(popUp) == "object") { if (typeof(popUp.window) == "object") { popUp.close(); }}
+
+	    popUp = window.open(uri, winName, 'width=' + width + ',height=' + height + winArgs);
+
+		/* attempt to focus the new window */
+		if (typeof(popUp) == "object") {
+			try {
+			    popUp.focus();
+			} catch(err) {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	// A general-purpose popup window function
+	function popupWindow(uri, width, height) {
+	    var windowName = 'popup';
+	    if(arguments.length > 3) {
+	        windowName = arguments[3];
+	    }
+
+	    return basePopup(uri,width,height,windowName,',scrollbars=no,resizable=yes,menubar=no,toolbar=no,location=no,directories=no,status=no,menubars=no');
+	}
+
+	// A general-purpose popup window function with full chrome
+	function popupScrollOnly(uri,width,height,windowName) {
+	    return basePopup(uri,width,height,windowName,',scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no');
+	}
+
+	function EnlargePhoto(filename) {
+	    return popupScrollOnly('image-popup.php?filename=' + filename,610,570,'photo');
+	}
+
+</script>

@@ -139,7 +139,22 @@ module.exports.routes = {
   'get /logout': {
     controller: 'user',
     action: 'logout'
-  }
+  },
+
+  'get /products': {
+    controller: 'products',
+    action: 'index'
+  },
+
+  'get /products/category/:cat': {
+    controller: 'products',
+    action: 'category'
+  },
+
+  'get /products/category/:cat/product/:product': {
+    controller: 'products',
+    action: 'product'
+  },
 
   /*
   // But what if you want your home page to display

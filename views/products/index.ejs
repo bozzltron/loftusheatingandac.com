@@ -1,0 +1,67 @@
+  <div class="wrapper">
+    <div class="section-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+        <!-- Remove the .animated class if you don't want things to move -->
+      <h1 class="animated slideInLeft"><span>Products</span></h1>
+      </div>
+    </div>
+    </div>
+    </div>
+
+	<div class="container">
+
+	<% _.each(categories, function(category){ %>
+
+		<div class="Category">
+
+			<h2><%= category.CategoryName %></h2>
+
+			<div class="row">
+				<div class="col-md-2">
+					<% if (category.HighlightImage) { %>
+						<img class="img-thumbnail" src="<%= category.HighlightImage %>" alt="<%= category.CategoryName %>">
+					<% } %>
+				</div>
+				<div class="col-md-10">
+
+					<% if (category.Products) { %>
+
+						<div class="ProductCount">
+							Contains <%= category.Products %> Products &nbsp;
+							<a href="/products/category/<%= category.ID %>">view list</a>
+						</div><br />
+
+					<% } %>
+
+					<div class="Description">Description: <%= category.ShortDescription %></div>
+				
+					<% if (category.SubCategories) { %>
+						<div class="SubCats">
+							<strong>Subcategories:</strong>
+							<% _.each(category.SubCategories.SubCategory, function(subcat){  %>
+
+								<% if(typeof(subcat) == "string") { %>
+									<%= subcat %>
+								<% } %>	
+
+								<% if(subcat.SubCategoryName) { %>
+									<%= (subcat.SubCategoryName) %>
+								<% } %>
+
+							<% }); %>
+						</div>
+					<% } %>
+				</div>
+			</div>
+
+			<hr />
+
+		</div>
+
+	<% }); %>
+
+
+	</div>
+</div>

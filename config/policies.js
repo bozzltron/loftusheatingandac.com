@@ -38,6 +38,10 @@ module.exports.policies = {
 
   HomeController: {
   	'index': true
+  },
+
+  ProductsController: {
+    '*': true,
   }
 
 };

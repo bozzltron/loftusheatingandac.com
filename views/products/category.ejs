@@ -20,83 +20,85 @@
 
 				<h2><%= subcat.SubCategoryName %></h2>
 
-				<table class="Products table table-striped table-responsive">
-					<thead>
-						<tr valign="bottom">
-							<th>	
-								<% if(subcat.ContainsEnergyStar == "Yes"){  %>
-									<img src="http://lennox.com/res/skins/2007/images/icon_estar.gif" alt="ESTAR ICON" height="12" width="12"> ENERGY STAR<sup>&reg;</sup> Product
-								<% } else { %>
-									Products
+				<div class="table-responsive">
+					<table class="Products table table-striped">
+						<thead>
+							<tr valign="bottom">
+								<th>	
+									<% if(subcat.ContainsEnergyStar == "Yes"){  %>
+										<img src="http://lennox.com/res/skins/2007/images/icon_estar.gif" alt="ESTAR ICON" height="12" width="12"> ENERGY STAR<sup>&reg;</sup> Product
+									<% } else { %>
+										Products
+									<% } %>
+								</th>
+								<th>&nbsp;</th>
+
+								<% if(subcat.CategoryRatings) { %>
+									<% if(_.isArray(subcat.CategoryRatings.CategoryRating)) { %>
+
+										<% _.each(subcat.CategoryRatings.CategoryRating, function(rating){ %>
+											<th><%- rating.Name %></th>
+										<% }); %>
+
+									<% } else if(_.isObject(subcat.CategoryRatings.CategoryRating)) { %>
+										<th><%- subcat.CategoryRatings.CategoryRating.Name %></th>
+									<% } %>
 								<% } %>
-							</th>
-							<th>&nbsp;</th>
 
-							<% if(subcat.CategoryRatings) { %>
-								<% if(_.isArray(subcat.CategoryRatings.CategoryRating)) { %>
+								<th>
+									<a href="http://www.lennox.com/popups/disclaimer.asp#priceguide" class="Popup w350 h175">
+									Price<br>Guide<sup>*</sup>
+									</a>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
 
-									<% _.each(subcat.CategoryRatings.CategoryRating, function(rating){ %>
-										<th><%- rating.Name %></th>
-									<% }); %>
+						<% _.each(subcat.Product, function(product){ %>
 
-								<% } else if(_.isObject(subcat.CategoryRatings.CategoryRating)) { %>
-									<th><%- subcat.CategoryRatings.CategoryRating.Name %></th>
-								<% } %>
-							<% } %>
+							<tr>
 
-							<th>
-								<a href="http://www.lennox.com/popups/disclaimer.asp#priceguide" class="Popup w350 h175">
-								Price<br>Guide<sup>*</sup>
-								</a>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
+								<td>
+									<% if(product.EnergyStar == 'Y') { %>
+										<img src="http://lennox.com/res/skins/2007/images/icon_estar.gif" alt="ESTAR ICON" height="12" width="12" />
+									<% } %>
+									<a href="/products/category/<%= category %>/product/<%= product.ModelNumber %>">
+									<%- product.ModelName %>
+									</a>
+								</td>
+								
+								<td><%= product.New == "Y" ? 'NEW' : '' %></td>
 
-					<% _.each(subcat.Product, function(product){ %>
-
-						<tr>
-
-							<td>
-								<% if(product.EnergyStar == 'Y') { %>
-									<img src="http://lennox.com/res/skins/2007/images/icon_estar.gif" alt="ESTAR ICON" height="12" width="12" />
-								<% } %>
-								<a href="/products/category/<%= category %>/product/<%= product.ModelNumber %>">
-								<%- product.ModelName %>
-								</a>
-							</td>
-							
-							<td><%= product.New == "Y" ? 'NEW' : '' %></td>
-
-							<% if(product.Ratings) { %>
-								<% if (_.isArray(product.Ratings.Rating)) { %>
-									<% _.each(product.Ratings.Rating, function(rating){  %>
-										<td><%= rating['@text'] %>&nbsp;</td>
-									<% 	}); %>
-									<% if(subcat.CategoryRatings.CategoryRating.length > product.Ratings.Rating.length){ %>
+								<% if(product.Ratings) { %>
+									<% if (_.isArray(product.Ratings.Rating)) { %>
+										<% _.each(product.Ratings.Rating, function(rating){  %>
+											<td><%= rating['@text'] %>&nbsp;</td>
+										<% 	}); %>
+										<% if(subcat.CategoryRatings.CategoryRating.length > product.Ratings.Rating.length){ %>
+											<td colspan="<%= subcat.CategoryRatings.CategoryRating.length - product.Ratings.Rating.length %>">&nbsp;</td>	
+										<% } %>
+									<% } else if (!_.isArray(product.Ratings.Rating)) { %>
+										<td><%= product.Ratings.Rating['@text'] %></td>
+										<% if(subcat.CategoryRatings.CategoryRating.length > 1){ %>
+											<td colspan="<%= subcat.CategoryRatings.CategoryRating.length - 1 %>">&nbsp;</td>	
+										<% } %>
+									<% } else { %>
 										<td colspan="<%= subcat.CategoryRatings.CategoryRating.length - product.Ratings.Rating.length %>">&nbsp;</td>	
 									<% } %>
-								<% } else if (!_.isArray(product.Ratings.Rating)) { %>
-									<td><%= product.Ratings.Rating['@text'] %></td>
-									<% if(subcat.CategoryRatings.CategoryRating.length > 1){ %>
-										<td colspan="<%= subcat.CategoryRatings.CategoryRating.length - 1 %>">&nbsp;</td>	
-									<% } %>
 								<% } else { %>
-									<td colspan="<%= subcat.CategoryRatings.CategoryRating.length - product.Ratings.Rating.length %>">&nbsp;</td>	
+									<% if(subcat.CategoryRatings) { %>
+										<td colspan="<%= subcat.CategoryRatings.CategoryRating.length %>">&nbsp;</td>
+									<% } %>
 								<% } %>
-							<% } else { %>
-								<% if(subcat.CategoryRatings) { %>
-									<td colspan="<%= subcat.CategoryRatings.CategoryRating.length %>">&nbsp;</td>
-								<% } %>
-							<% } %>
 
-							<td><%= product.PriceGuide ? product.PriceGuide : '' %></td>
-						</tr>
+								<td><%= product.PriceGuide ? product.PriceGuide : '' %></td>
+							</tr>
 
-					<% }); %>
+						<% }); %>
 
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 
 			</div>
 

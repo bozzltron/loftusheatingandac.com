@@ -16,6 +16,7 @@
  */
 
 var marked = require("marked");
+var _ = require("underscore");
 
 module.exports = {
     
@@ -34,6 +35,11 @@ module.exports = {
 
       // Found multiple users!
       } else {
+
+        posts.forEach(function(post){
+          post.body = marked(post.body);
+        });
+
         return res.view('home/index', {posts: posts});
       }
     });
@@ -50,6 +56,11 @@ module.exports = {
 
       // Found multiple users!
       } else {
+
+        posts.forEach(function(post){
+          post.body = marked(post.body);
+        });
+
         return res.view('home/alternate', {posts: posts});
       }
     });

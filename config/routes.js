@@ -37,6 +37,10 @@ module.exports.routes = {
     action: 'index'
   },
 
+  'get /certification' : {
+    view: 'home/certification'
+  },
+
   'get /contact': {
     controller: 'contact',
     action: 'index'

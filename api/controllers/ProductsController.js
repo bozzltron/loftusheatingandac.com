@@ -16,9 +16,9 @@
  */
 
 var http = require("http");
-var XML = require("xml2json");
+var xml = require("nodexml");
 
-function urlToJSON(url, cb) {
+function urlToJSON(url, callback) {
 
 	var req = http.get(url, function(xmlRes) {
 
@@ -30,9 +30,9 @@ function urlToJSON(url, cb) {
 
 	    xmlRes.on('end', function(){
 
-	      var json = JSON.parse(XML.toJson(pageData));
+			var json = xml.xml2obj(pageData);
 
-	      cb(json);
+	      	callback(json);
 
 	    });
 
@@ -79,7 +79,9 @@ module.exports = {
 	
 	urlToJSON(url, function(json){
 
-		return res.view('products/product', {product:json.ProductInfo.Product});
+		var product = json.ProductInfo.Product;
+
+		return res.view('products/product', {product:product});
 
 	});
 

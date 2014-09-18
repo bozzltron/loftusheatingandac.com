@@ -7,7 +7,6 @@
  * For more information on bootstrapping your app, check out:
  * http://sailsjs.org/#documentation
  */
-
 module.exports.bootstrap = function (cb) {
 
   // It's very important to trigger this callack method when you are finished 

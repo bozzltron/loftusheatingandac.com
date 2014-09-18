@@ -16,7 +16,6 @@
  */
 
 var marked = require("marked");
-var _ = require("underscore");
 
 module.exports = {
     

@@ -1,5 +1,3 @@
-var entities = require("entities");
-var _ = require("underscore");
 
 module.exports.express = {
     customMiddleware: function (app) {

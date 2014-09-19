@@ -26,13 +26,13 @@
 					
 					<% if(product.Series) { %>
 						<% if(product.Series.Display == "Y") { %>
-							<h2><%- product.Series['@text'] %>&nbsp;</h2>
+							<h2 class="hl"><%- product.Series['@text'] %>&nbsp;</h2>
 						<% } %>
 					<% } %>
 
 					<%- product.OneLiner %>
 
-					<h3>Features</h3>
+					<h3 class="hl">Features</h3>
 					<% _.each(product.Features.Feature, function(feature){  %>
 						<h4><%- feature.Title %></h4>
 						<ul>
@@ -41,7 +41,7 @@
 					<% }); %>
 
 					<% if(product.Publications) { %>
-						<h3>Publications</h3>
+						<h3 class="hl">Publications</h3>
 						<% if(_.isArray(product.Publications.Publication)) { %>
 							<%  _.each(product.Publications.Publication, function(pub){  %>
 								<a href="<%= pub.URL %>"><%= pub.Name %></a><br />
@@ -52,7 +52,7 @@
 					<% } %>
 
 					<% if(product.Certifications) { %>
-						<h3>Certifications</h3>
+						<h3 class="hl">Certifications</h3>
 						<% if(_.isArray(product.Certifications.Certification)) { %>
 							<%  _.each(product.Certifications.Certification, function(cert){  %>
 								<img class="CertLogo" src="http://www.lennox.com/res/images/logo_<%= cert.Code %>.jpg" />

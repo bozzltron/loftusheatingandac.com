@@ -30,7 +30,7 @@
 				<input type="text" class="form-control" id="title" placeholder="Enter title" value="<%= post.title %>" name="title" />
 			  </div>
 			  <div class="form-group">
-				<label for="name">Password</label>
+				<label for="name">Blog</label>
 				<textarea class="form-control" rows="20" name="body" placeholder="Enter blog"><%= post.body %></textarea>
 			  </div>
 			  <div class="form-group">
@@ -39,6 +39,7 @@
 			  </div>
 			  <div class="form-group">
 				<label for="link">Link</label>
+				<p>This allows you to edit the url of the blog.  Normally, you want to leave this empty.</p>
 				<input type="text" class="form-control" id="link" value="<% if(post.link){ %><%= post.link %><% } %>" name="link" />
 			  </div>			  
 			  <input type='hidden' name='_csrf' value='<%= _csrf %>' />

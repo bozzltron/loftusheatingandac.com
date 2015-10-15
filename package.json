@@ -2,6 +2,9 @@
   "name": "loftusheatingandac.com",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "0.12.7"
+  },
   "description": "a Sails application",
   "dependencies": {
     "async": "~0.2.10",

@@ -26,7 +26,7 @@ module.exports = {
   },
 
   beforeCreate: function (attrs, next) {
-    var bcrypt = require('bcrypt');
+    var bcrypt = require('bcrypt-nodejs');
 
     bcrypt.genSalt(10, function(err, salt) {
       if (err) return next(err);

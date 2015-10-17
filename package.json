@@ -20,7 +20,8 @@
     "sails": "0.9.8",
     "sails-disk": "~0.9.0",
     "sails-mongo": "~0.9.7",
-    "sendgrid": "~1.0.2"
+    "sendgrid": "~1.0.2",
+    "underscore.string": "^3.2.2"
   },
   "scripts": {
     "start": "node app.js",

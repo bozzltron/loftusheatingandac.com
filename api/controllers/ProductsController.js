@@ -60,7 +60,7 @@ module.exports = {
   	var cat = req.param('cat');
 
 	//Lennox.com Product API URL for Product Categories
-	var url = "http://www.lennox.com/api/v1/RcI1g2o/category/" + cat + "/";
+	var url = "http://api.lennox.com/v1/RcI1g2o/category/" + cat + "/";
 	
 	urlToJSON(url, function(json){
 
@@ -75,7 +75,7 @@ module.exports = {
   	var product = req.param('product');
 
 	//Lennox.com Product API URL for Product Categories
-	var url = "http://www.lennox.com/api/v1/RcI1g2o/product/" + product + "/";
+	var url = "http://api.lennox.com/v1/RcI1g2o/product/" + product + "/";
 	
 	urlToJSON(url, function(json){
 

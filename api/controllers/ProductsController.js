@@ -45,7 +45,7 @@ module.exports = {
   index: function(req, res) {
 
 	//Lennox.com Product API URL for Product Categories
-	var url = "http://www.lennox.com/api/v1/RcI1g2o/categories/";
+	var url = "http://api.lennox.com/v1/RcI1g2o/categories/";
 
 	urlToJSON(url, function(json){
 

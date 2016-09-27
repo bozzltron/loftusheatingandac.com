@@ -30,5 +30,8 @@
   "main": "app.js",
   "repository": "",
   "author": "",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "forever": "^0.15.2"
+  }
 }

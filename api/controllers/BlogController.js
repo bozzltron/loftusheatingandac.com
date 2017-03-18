@@ -36,7 +36,7 @@ module.exports = {
   	if(req.body.id) {
 
 		// Update blog
-		Blog.findOne({_id:req.body.id}).done(function (err, blog) {
+		Blog.findOne({_id:req.body.id}).exec(function (err, blog) {
 
 	      if (err) return res.send(err,500);
 	      if (!blog) return res.send("No blogs with that id exists!", 404);
@@ -69,7 +69,7 @@ module.exports = {
 		  tags: req.body.tags,
 		  published: published,
 		  userId: req.session.user 
-		}).done(function(err, user) {
+		}).exec(function(err, user) {
 
 		  // Error handling
 		  if (err) {
@@ -96,7 +96,7 @@ module.exports = {
 	    function(callback){
 
 			// Get all blogs
-			Blog.find({}).sort('published DESC').done(function(err, posts) {
+			Blog.find({}).sort('published DESC').exec(function(err, posts) {
 
 		      // Format for display
 		      var moment = require("moment");
@@ -152,7 +152,7 @@ module.exports = {
 
   delete: function(req, res) {
   	// Lookup a user
-	Blog.findOne({_id:req.param('id')}).done(function(err, blog) {
+	Blog.findOne({_id:req.param('id')}).exec(function(err, blog) {
 
 	  	// destroy the record
 	  	blog.destroy(function(err) {
@@ -214,7 +214,7 @@ module.exports = {
 	   
 	  	// Save the blog
 		// For example
-		Blog.create(blog).done(function(err, user) {
+		Blog.create(blog).exec(function(err, user) {
 
 		  // Error handling
 		  if (err) {
@@ -244,7 +244,7 @@ module.exports = {
 	    function(callback){
 
 			// Get the specific blog post
-			Blog.findOne({link:req.path}).done(function(err, post) {
+			Blog.findOne({link:req.path}).exec(function(err, post) {
 		 
 			  // Error handling
 			  if (err) {
@@ -372,7 +372,7 @@ module.exports = {
   _gettags: function(callback) {
 
 	// Get all tags
-	Blog.find({tags:{$exists:true}}, {tags: 1 }).done(function(err, tags) {
+	Blog.find({tags:{$exists:true}}, {tags: 1 }).exec(function(err, tags) {
 
 	  // Error handling
 	  if (err) {
@@ -416,9 +416,9 @@ module.exports = {
     }
 
     if(limit) {
-    	Blog.find(query).limit(limit).sort('published DESC').done(response);
+    	Blog.find(query).limit(limit).sort('published DESC').exec(response);
     } else {
-    	Blog.find(query).sort('published DESC').done(response);
+    	Blog.find(query).sort('published DESC').exec(response);
     }
 
   },

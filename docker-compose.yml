@@ -1,0 +1,12 @@
+version: '2'
+services:
+  loftusheatingandac:
+    build: .
+    ports:
+     - "1337:1337"
+    volumes:
+     - ".:/usr/src/app/"
+    environment:
+      NODE_ENV: 'development'
+      PORT: 1337
+    entrypoint: 'node_modules/.bin/forever -w --watchIgnore="node_modules" --watchIgnore=".tmp" app.js'

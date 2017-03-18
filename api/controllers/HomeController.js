@@ -26,7 +26,7 @@ module.exports = {
    */
    index: function (req, res) {
       
-    Blog.find({}).limit(3).sort('published DESC').done(function(err, posts) {
+    Blog.find({}).limit(3).sort('published DESC').exec(function(err, posts) {
 
       // Error handling
       if (err) {
@@ -47,7 +47,7 @@ module.exports = {
 
    alternate: function (req, res) {
       
-    Blog.find({}).limit(3).sort('published DESC').done(function(err, posts) {
+    Blog.find({}).limit(3).sort('published DESC').exec(function(err, posts) {
 
       // Error handling
       if (err) {

@@ -1,0 +1,4 @@
+"hooks": {
+  "session": false,
+  "sockets": false
+}

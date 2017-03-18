@@ -15,7 +15,7 @@ module.exports.session = {
   // Session secret is automatically generated when your new app is created
   // Replace at your own risk in production-- you will invalidate the cookies of your users,
   // forcing them to log in again. 
-  // secret: '5b9e860eb68177c79ed4aaa8e98a9d57'
+  secret: '5b9e860eb68177c79ed4aaa8e98a9d57',
 
 
   // In production, uncomment the following lines to set up a shared redis session store
@@ -45,7 +45,7 @@ module.exports.session = {
   // Optional Values:
   //
   // # Note: url will override other connection settings
-  //url: process.env.MONGOLAB_URI,
+  url: process.env.MONGOLAB_URI
   //
   // username: '',
   // password: '',

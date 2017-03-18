@@ -33,8 +33,8 @@ module.exports.connections = {
   },
 
   mongo: {
-    module   : 'sails-mongo',
-    url      : process.env.MONGOLAB_URI
+    adapter: 'sails-mongo',
+    url: process.env.MONGOLAB_URI
   }
 
   /***************************************************************************

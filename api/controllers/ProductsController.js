@@ -15,12 +15,12 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
-var http = require("http");
+var https = require("https");
 var xml = require("nodexml");
 
 function urlToJSON(url, callback) {
 
-	var req = http.get(url, function(xmlRes) {
+	var req = https.get(url, function(xmlRes) {
 
 	    var pageData = "";
 	    
@@ -31,7 +31,7 @@ function urlToJSON(url, callback) {
 	    xmlRes.on('end', function(){
 
 			var json = xml.xml2obj(pageData);
-
+          console.log(json);
 	      	callback(json);
 
 	    });
@@ -45,7 +45,8 @@ module.exports = {
   index: function(req, res) {
 
 	//Lennox.com Product API URL for Product Categories
-	var url = "http://api.lennox.com/v1/RcI1g2o/categories/";
+
+	var url = "https://api.lennox.com/v1/RcI1g2o/categories/";
 
 	urlToJSON(url, function(json){
 
@@ -60,7 +61,7 @@ module.exports = {
   	var cat = req.param('cat');
 
 	//Lennox.com Product API URL for Product Categories
-	var url = "http://api.lennox.com/v1/RcI1g2o/category/" + cat + "/";
+	var url = "https://api.lennox.com/v1/RcI1g2o/category/" + cat + "/";
 	
 	urlToJSON(url, function(json){
 
@@ -75,7 +76,7 @@ module.exports = {
   	var product = req.param('product');
 
 	//Lennox.com Product API URL for Product Categories
-	var url = "http://api.lennox.com/v1/RcI1g2o/product/" + product + "/";
+	var url = "https://api.lennox.com/v1/RcI1g2o/product/" + product + "/";
 	
 	urlToJSON(url, function(json){
 

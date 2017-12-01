@@ -9,7 +9,7 @@
   "dependencies": {
     "async": "^0.2.10",
     "bcrypt-nodejs": "0.0.3",
-    "ejs": "2.3.4",
+    "ejs": "^2.5.7",
     "feedparser": "^0.16.6",
     "forever": "^0.15.3",
     "grunt": "1.0.1",

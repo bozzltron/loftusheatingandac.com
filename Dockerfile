@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:8
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 EXPOSE 1337

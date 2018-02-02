@@ -15,8 +15,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 var sendgrid  = require('sendgrid')(
-  'app22294212@heroku.com', //process.env.SENDGRID_USERNAME,
-  'tqbt2ivp' //process.env.SENDGRID_PASSWORD
+  process.env.SENDGRID_USERNAME,
+  process.env.SENDGRID_PASSWORD
 );
 
 module.exports = {

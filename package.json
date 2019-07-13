@@ -5,7 +5,7 @@
   "engines": {
     "node": "10.x"
   },
-  "description": "a Sails application",
+  "description": "Loftus heating and ac",
   "dependencies": {
     "async": "^0.2.10",
     "bcrypt-nodejs": "0.0.3",

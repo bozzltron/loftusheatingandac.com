@@ -1,1 +1,1 @@
-web: node forever.js --prod 
+web: node_modules/.bin/forever app.js --prod 

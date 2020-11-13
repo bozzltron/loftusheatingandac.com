@@ -12,3 +12,6 @@ start:
 
 bash:
 	docker run -it --rm -v `pwd`:/usr/src/app -w "/usr/src/app" --entrypoint=bash node:12
+
+push:
+	git push origin master && git push heroku master

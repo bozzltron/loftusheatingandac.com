@@ -13,7 +13,13 @@ module.exports = {
   	/* e.g.
   	nickname: 'string'
   	*/
-    tag : ""
+    tag : { type: "string"},
+    
+    id: {
+      columnName: "_id",
+      type: 'string', 
+      autoIncrement: false
+    }
     
   },
 

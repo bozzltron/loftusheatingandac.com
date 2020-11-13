@@ -18,8 +18,12 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'mongo',
+    datastore: 'mongo',
     url: process.env.MONGOLAB_URI
+  },
+
+  sockets: {
+      onlyAllowOrigins: ["http://www.loftusheatingandac.com"]
   }
 
   /***************************************************************************

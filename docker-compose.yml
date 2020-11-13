@@ -7,6 +7,8 @@ services:
     volumes:
      - ".:/usr/src/app/"
     environment:
-      NODE_ENV: 'development'
+      NODE_ENV: 'production'
       PORT: 1337
-    entrypoint: pm2-runtime app.js --watch
+      MONGOLAB_URI: "mongodb://heroku_app22294212_A:n3AELsw46Q4PLza@cluster-app22294212.lu9rm.mongodb.net:27017/heroku_app22294212"
+    #entrypoint: pm2-runtime app.js --watch
+    entrypoint: node app.js

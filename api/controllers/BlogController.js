@@ -29,59 +29,57 @@ module.exports = {
     }});
   },
 
-  create: function(req, res) {
+  create: async function(req, res) {
   
   	var published = new Date()
 
   	if(req.body.id) {
 
 		// Update blog
-		Blog.findOne({id:req.body.id}).exec(function (err, blog) {
+		let blog = Blog.findOne({id:req.body.id});
 
-	      if (err) return res.send(err,500);
-	      if (!blog) return res.send("No blogs with that id exists!", 404);
-	      
-	      blog.title = req.body.title;
-	      blog.body = req.body.body;
-	      blog.tags = req.body.tags;
-	      blog.link = req.body.link;
-	      blog.updated = published;
-	      blog.userId = req.session.user;
+		if (err) return res.send(err,500);
+		if (!blog) return res.send("No blogs with that id exists!", 404);
 
-	      // Persist the change
-	      blog.save(function (err) {
-	        if (err) return res.send(err,500);
+		blog.title = req.body.title;
+		blog.body = req.body.body;
+		blog.tags = req.body.tags;
+		blog.link = req.body.link;
+		blog.updated = published;
+		blog.userId = req.session.user;
 
-	        // Report back with the new state of the chicken
-	        req.flash("success", "Successfully update your blog.");
-	
-	        res.redirect('blog');
-	      });
+		// Persist the change
+		try {
+			await Blog.update(blog);
+		} catch(e){
+			req.flash("danger", e);
+		}
 
-	  	});
+		// Report back with the new state of the chicken
+		req.flash("success", "Successfully update your blog.");
+
+		res.redirect('blog');
 
   	} else {
 
-	  	// Save the blog
-		Blog.create({
-		  title: req.body.title,
-		  body: req.body.body,
-		  tags: req.body.tags,
-		  published: published,
-		  userId: req.session.user 
-		}).exec(function(err, user) {
+		try {
 
-		  // Error handling
-		  if (err) {
-		    req.flash("danger", err);
-		  	return res.redirect('blog/create');
+			// Save the blog
+			Blog.create({
+				title: req.body.title,
+				body: req.body.body,
+				tags: req.body.tags,
+				published: published,
+				userId: req.session.user 
+			});
 
-		  // The User was created successfully!
-		  }else {
-		  	req.flash("success", "Successfully created a new blog!");
-		  	return res.redirect('blog');
-		  }
-		});
+		} catch(e) {
+			req.flash("danger", e);
+			return res.redirect('blog/create');
+		}
+		
+		req.flash("success", "Successfully created a new blog!");
+		return res.redirect('blog');
 
 	}
 

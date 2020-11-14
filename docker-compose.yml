@@ -9,6 +9,6 @@ services:
     environment:
       NODE_ENV: 'production'
       PORT: 1337
-      MONGOLAB_URI: "mongodb://heroku_app22294212_A:n3AELsw46Q4PLza@cluster-app22294212.lu9rm.mongodb.net:27017/heroku_app22294212"
-    #entrypoint: pm2-runtime app.js --watch
-    entrypoint: node app.js
+      #mongodb+srv://heroku_app22294212_A:n3AELsw46Q4PLza@cluster-app22294212.lu9rm.mongodb.net/heroku_app22294212
+      MONGOLAB_URI: "mongodb://heroku_app22294212_A:n3AELsw46Q4PLza@cluster-app22294212-shard-00-00.lu9rm.mongodb.net:27017,cluster-app22294212-shard-00-01.lu9rm.mongodb.net:27017,cluster-app22294212-shard-00-02.lu9rm.mongodb.net:27017/heroku_app22294212?ssl=true&replicaSet=atlas-esfhhm-shard-0&authSource=admin&retryWrites=true&w=majority"
+    entrypoint: pm2-runtime app.js --watch

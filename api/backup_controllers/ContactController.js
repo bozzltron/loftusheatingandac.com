@@ -21,7 +21,7 @@ var sendgrid  = require('sendgrid')(
 
 module.exports = {
     
-  index: function(req, res) {
+  index: async function(req, res) {
     return res.view('contact/index', { messages: [{}] } );
   },
 
@@ -29,7 +29,7 @@ module.exports = {
    * Action blueprints:
    *    `/contact/send`
    */
-   send: function (req, res) {
+   send: async function (req, res) {
 
         if(typeof(req.body.from) != undefined && req.body.name && req.body.message) {
       

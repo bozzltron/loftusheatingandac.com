@@ -12,6 +12,7 @@ module.exports.datastores = {
   mongo: {
     adapter: require('sails-mongo'),
     url: process.env.MONGOLAB_URI,
+    ssl: true
   }
 
 };

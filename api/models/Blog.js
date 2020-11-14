@@ -19,6 +19,11 @@ module.exports = {
       columnName: "_id",
       type: 'string', 
       autoIncrement: false
+    },
+
+    published: {
+      type: 'ref', 
+      columnType: 'datetime'
     }
     
   },

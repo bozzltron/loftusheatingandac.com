@@ -42,7 +42,7 @@ function urlToJSON(url, callback) {
 
 module.exports = {
       
-  index: function(req, res) {
+  index: async function(req, res) {
 
 	//Lennox.com Product API URL for Product Categories
 
@@ -56,7 +56,7 @@ module.exports = {
 
   },
 
-  category: function(req, res) {
+  category: async function(req, res) {
 
   	var cat = req.param('cat');
 
@@ -71,7 +71,7 @@ module.exports = {
 
   },
 
-  product: function(req, res) {
+  product: async function(req, res) {
 
   	var product = req.param('product');
 

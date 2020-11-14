@@ -60,14 +60,6 @@ module.exports = {
 
 	form: async function(req, res) {
 		return res.view('user/login');
-	},
-
-  /**
-   * Overrides for the settings in `config/controllers.js`
-   * (specific to UserController)
-   */
-  _config: {},
-
-  shortcuts: false
-  
+	}
+	
 };

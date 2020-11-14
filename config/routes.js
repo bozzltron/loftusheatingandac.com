@@ -37,129 +37,128 @@ module.exports.routes = {
     action: 'index'
   },
 
+  'get /certification' : {
+    view: 'home/certification'
+  },
 
-  // 'get /certification' : {
-  //   view: 'home/certification'
-  // },
+  'get /about': {
+    view: 'about/index'
+  },
 
-  // 'get /contact': {
-  //   controller: 'contact',
-  //   action: 'index'
-  // },
+  'get /about/guarantee': {
+    view: 'about/guarantee'
+  },  
 
-  // 'get /about': {
-  //   view: 'about/index'
-  // },
+  'get /about/indoor-air-quality': {
+    view: 'about/indoor-air-quality'
+  },    
 
-  // 'get /about/guarantee': {
-  //   view: 'about/guarantee'
-  // },  
+  'get /about/team': {
+    view: 'about/team'
+  },
 
-  // 'get /about/indoor-air-quality': {
-  //   view: 'about/indoor-air-quality'
-  // },    
-
-  // 'get /about/team': {
-  //   view: 'about/team'
-  // },
-
-  // 'get /about/services': {
-  //   view: 'about/services'
-  // },
+  'get /about/services': {
+    view: 'about/services'
+  },
 
   'get /blog': {
     controller: 'blog',
     action: 'blog'
   },
 
-  // 'get /blog/create': {
-  //   controller: 'blog',
-  //   action: 'form'
-  // },
+  'get /blog/create': {
+    controller: 'blog',
+    action: 'form'
+  },
 
-  // 'get /blog/:year/:month/:title': {
-  //   controller: 'blog',
-  //   action: 'view'
-  // },
+  'get /blog/:year/:month/:title': {
+    controller: 'blog',
+    action: 'view'
+  },
 
-  // 'post /blog/create': {
-  //   controller: 'blog',
-  //   action: 'create'
-  // },
+  'post /blog/create': {
+    controller: 'blog',
+    action: 'create'
+  },
 
-  // 'get /blog/edit/:id': {
-  //   controller: 'blog',
-  //   action: 'editForm'
-  // },
+  'get /blog/edit/:id': {
+    controller: 'blog',
+    action: 'editForm'
+  },
 
-  // 'get /blog/delete/:id': {
-  //   controller: 'blog',
-  //   action: 'delete'
-  // },
+  'get /blog/delete/:id': {
+    controller: 'blog',
+    action: 'delete'
+  },
 
-  // 'get /blog/import': {
-  //   controller: 'blog',
-  //   action: 'importForm'
-  // },
+  'get /blog/import': {
+    controller: 'blog',
+    action: 'importForm'
+  },
 
-  // 'post /blog/import': {
-  //   controller: 'blog',
-  //   action: 'import'
-  // },
+  'post /blog/import': {
+    controller: 'blog',
+    action: 'import'
+  },
 
-  // 'get /blog/tags' : {
-  //   controller: 'blog',
-  //   action: 'tags'
-  // },
+  'get /blog/tags' : {
+    controller: 'blog',
+    action: 'tags'
+  },
 
-  // 'get /blog/tags/:tag' : {
-  //   controller: 'blog',
-  //   action: 'tag'
-  // },
+  'get /blog/tags/:tag' : {
+    controller: 'blog',
+    action: 'tag'
+  },
 
-  // 'get /rss': {
-  //   controller: 'blog',
-  //   action: 'rss'
-  // },
+  'get /rss': {
+    controller: 'blog',
+    action: 'rss'
+  },
 
-  // 'get /faq': {
-  //   view: 'faq/index'
-  // },
+  'get /faq': {
+    view: 'faq/index'
+  },
 
-  // 'post /contact': {
-  //   controller: 'contact',
-  //   action: 'send'
-  // },
+  'get /contact': {
+    controller: 'contact',
+    action: 'index'
+  },
 
-  // 'get /login': {
-  //   controller: 'user',
-  //   action: 'form'
-  // },
+  'post /contact': {
+    controller: 'contact',
+    action: 'send'
+  },
 
-  // 'post /login': {
-  //   controller: 'user',
-  //   action: 'login'
-  // },
+  'get /login': {
+    controller: 'user',
+    action: 'form'
+  },
 
-  // 'get /logout': {
-  //   controller: 'user',
-  //   action: 'logout'
-  // },
+  'post /login': {
+    controller: 'user',
+    action: 'login'
+  },
 
-  // 'get /products': {
-  //   controller: 'products',
-  //   action: 'index'
-  // },
+  'get /logout': {
+    controller: 'user',
+    action: 'logout'
+  },
 
-  // 'get /products/category/:cat': {
-  //   controller: 'products',
-  //   action: 'category'
-  // },
+  'get /products': {
+    controller: 'products',
+    action: 'index'
+  },
 
-  // 'get /products/category/:cat/product/:product': {
-  //   controller: 'products',
-  //   action: 'product'
-  // },
+  'get /products/category/:cat': {
+    controller: 'products',
+    action: 'category'
+  },
+
+  'get /products/category/:cat/product/:product': {
+    controller: 'products',
+    action: 'product'
+  },
 
   /*
   // But what if you want your home page to display

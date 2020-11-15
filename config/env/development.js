@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    datastore: 'localDiskDb'
+    datastore: 'default'
   },
 
   sockets: {

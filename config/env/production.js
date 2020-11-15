@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    datastore: 'mongo',
+    datastore: 'default',
     url: process.env.MONGOLAB_URI
   },
 

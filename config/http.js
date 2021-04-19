@@ -22,7 +22,7 @@ module.exports.http = {
   ****************************************************************************/
 
   middleware: {
-
+    flash    : require('connect-flash')(),
   /***************************************************************************
   *                                                                          *
   * The order in which middleware should be run for HTTP request. (the Sails *

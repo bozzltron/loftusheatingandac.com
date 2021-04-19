@@ -10,6 +10,7 @@
     "@sailshq/upgrade": "^1.0.9",
     "async": "^0.2.10",
     "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
     "ejs": "^2.5.7",
     "feedparser": "^0.16.6",
     "grunt": "^1.0.4",

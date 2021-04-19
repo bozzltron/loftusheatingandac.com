@@ -10,7 +10,7 @@ module.exports = {
 
   attributes: {
   	
-	email: {
+	  email: {
       type: 'string',
       unique: true,
       required: true
@@ -20,8 +20,13 @@ module.exports = {
       type: 'string',
       required: true,
       minLength: 6
+    },
+
+    id: {
+      columnName: "_id",
+      type: 'string', 
+      autoIncrement: false
     }
- 
     
   },
 

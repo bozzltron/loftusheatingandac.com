@@ -1,12 +1,13 @@
 {
   "name": "loftusheatingandac.com",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.1",
   "engines": {
     "node": "12.x"
   },
   "description": "Loftus heating and ac",
   "dependencies": {
+    "@sailshq/upgrade": "^1.0.9",
     "async": "^0.2.10",
     "bcrypt-nodejs": "0.0.3",
     "ejs": "^2.5.7",
@@ -24,27 +25,30 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "^0.8.1",
     "include-all": "^1.0.0",
+    "lodash": "3.10.1",
     "marked": "^0.7.0",
     "moment": "^2.5.1",
     "nodexml": "^1.0.2",
     "optimist": "0.3.4",
+    "pm2": "^4.5.0",
     "rc": "^1.2.8",
     "request": "^2.34.0",
-    "sails": "~0.12.13",
-    "sails-disk": "~0.10.9",
-    "sails-mongo": "^0.12.2",
+    "sails": "^1.4.0",
+    "sails-disk": "^2.1.0",
+    "sails-hook-grunt": "^1.0.8",
+    "sails-hook-orm": "^2.1.1",
+    "sails-hook-sockets": "^1.5.5",
+    "sails-mongo": "^1.2.0",
     "sendgrid": "^1.0.5",
     "underscore.string": "^3.3.5"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "pm2-runtime start ecosystem.config.js --env production",
     "debug": "node debug app.js"
   },
   "main": "app.js",
   "repository": "",
   "author": "",
   "license": "",
-  "devDependencies": {
-    "forever": "^0.15.3"
-  }
+  "devDependencies": {}
 }

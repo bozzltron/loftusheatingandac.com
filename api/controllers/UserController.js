@@ -24,7 +24,7 @@ module.exports = {
 
 	},
 
-	login: function (req, res) {
+	login: async function (req, res) {
 	    var bcrypt = require('bcrypt-nodejs');
 
 	    User.findOne({"email":req.body.email}).exec(function (err, user) {
@@ -53,21 +53,13 @@ module.exports = {
 	    });
 	},
 
-	logout: function(req, res) {
+	logout: async function(req, res) {
 		req.session.user = null;
 		res.redirect('/');
 	},
 
-	form: function(req, res) {
+	form: async function(req, res) {
 		return res.view('user/login');
-	},
-
-  /**
-   * Overrides for the settings in `config/controllers.js`
-   * (specific to UserController)
-   */
-  _config: {},
-
-  shortcuts: false
-  
+	}
+	
 };

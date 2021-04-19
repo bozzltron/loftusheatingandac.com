@@ -21,7 +21,7 @@ var sendgrid  = require('sendgrid')(
 
 module.exports = {
     
-  index: function(req, res) {
+  index: async function(req, res) {
     return res.view('contact/index', { messages: [{}] } );
   },
 
@@ -29,37 +29,30 @@ module.exports = {
    * Action blueprints:
    *    `/contact/send`
    */
-   send: function (req, res) {
+  //  send: async function (req, res) {
 
-        if(typeof(req.body.from) != undefined && req.body.name && req.body.message) {
+  //       if(typeof(req.body.from) != undefined && req.body.name && req.body.message) {
       
-            sendgrid.send({
-                to: 'service@loftusheatingandac.com',
-                from: req.body.from,
-                subject: 'LoftusHeatingAndAC.com [Contact Form] : ' + req.body.name,
-                text: req.body.message
-            }, function(err, json) {
-                if (err) { 
-                    console.error(err, json); 
-                    return res.view('contact/index', {messages:[{type:"danger", message:"There Was A Problem.  Try Again."}]});
-                } else {
-                   return res.view('contact/index', {messages:[{type:"success", message:"Your Message Was Sent.  Thank You!"}]});  
-                }
-                console.log(json);
-            });
+  //           sendgrid.send({
+  //               to: 'service@loftusheatingandac.com',
+  //               from: req.body.from,
+  //               subject: 'LoftusHeatingAndAC.com [Contact Form] : ' + req.body.name,
+  //               text: req.body.message
+  //           }, function(err, json) {
+  //               if (err) { 
+  //                   console.error(err, json); 
+  //                   return res.view('contact/index', {messages:[{type:"danger", message:"There Was A Problem.  Try Again."}]});
+  //               } else {
+  //                  return res.view('contact/index', {messages:[{type:"success", message:"Your Message Was Sent.  Thank You!"}]});  
+  //               }
+  //               console.log(json);
+  //           });
 
-        } else {
-            return res.view('contact/index', {messages:[{type:"danger", message:"Please fill out all of the fields!"}]});
-        }
+  //       } else {
+  //           return res.view('contact/index', {messages:[{type:"danger", message:"Please fill out all of the fields!"}]});
+  //       }
 
-  },
+  // },
 
-  /**
-   * Overrides for the settings in `config/controllers.js`
-   * (specific to ContactController)
-   */
-  _config: {},
-
-  shortcuts: false
   
 };

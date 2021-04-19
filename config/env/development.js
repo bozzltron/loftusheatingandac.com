@@ -18,7 +18,11 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'localDiskDb'
+    datastore: 'default'
+  },
+
+  sockets: {
+     onlyAllowOrigins: ["http://localhost"]
   }
 
 };

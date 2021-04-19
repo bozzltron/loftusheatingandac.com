@@ -24,45 +24,32 @@ module.exports = {
    *    `/home/index`
    *    `/home`
    */
-   index: function (req, res) {
-      
-    Blog.find({}).limit(3).sort('published DESC').exec(function(err, posts) {
+   index: async function (req, res) {
 
-      // Error handling
-      if (err) {
-        return console.log(err);
+    let posts = [];
+    try {
+      posts = await Blog.find({}).limit(3).sort([ { published: 'DESC' } ]);
+    } catch (e){
+      return console.log(e);
+    }
 
-      // Found multiple users!
-      } else {
-
-        posts.forEach(function(post){
-          post.body = marked(post.body);
-        });
-
-        return res.view('home/index', {posts: posts});
-      }
+    posts.forEach(function(post){
+      post.body = marked(post.body);
     });
+
+    return res.view('home/index', {posts: posts});
     
   },
 
-   alternate: function (req, res) {
+   alternate: async function (req, res) {
       
-    Blog.find({}).limit(3).sort('published DESC').exec(function(err, posts) {
+    let posts = await Blog.find({}).limit(3).sort('published DESC');
 
-      // Error handling
-      if (err) {
-        return console.log(err);
-
-      // Found multiple users!
-      } else {
-
-        posts.forEach(function(post){
-          post.body = marked(post.body);
-        });
-
-        return res.view('home/alternate', {posts: posts});
-      }
+    posts.forEach(function(post){
+      post.body = marked(post.body);
     });
+
+    return res.view('home/alternate', {posts: posts});
     
   },
 

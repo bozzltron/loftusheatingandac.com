@@ -9,19 +9,50 @@
 module.exports = {
 
   attributes: {
-  	
-  	/* e.g.
-  	nickname: 'string'
-  	*/
-    tag : ""
-    
+
+    // types: {
+    //   stringArray: function (array) {
+    //     if (!Array.isArray(array)) {
+    //       return false;
+    //     } else {
+    //       return array.every(function (value) {
+    //         return typeof (value) === "string"
+    //       });
+    //     }
+    //   }
+    // },
+
+    // tags: {
+    //   type: 'json',
+    //   custom: function(array) {
+    //     if (!Array.isArray(array)) {
+    //       return false;
+    //     } else {
+    //       return array.every(function (value) {
+    //         return typeof (value) === "string"
+    //       });
+    //     }
+    //   }
+    // },
+
+    id: {
+      columnName: "_id",
+      type: 'string',
+      autoIncrement: false
+    },
+
+    published: {
+      type: 'ref',
+      columnType: 'datetime'
+    }
+
   },
 
   beforeCreate: function (attrs, next) {
 
-  	// Save tags as an array
-    if(attrs.tags) {
-    	attrs.tags = attrs.tags.replace(/\s+/g, '').split(",");
+    // Save tags as an array
+    if (attrs.tags) {
+      attrs.tags = attrs.tags.replace(/\s+/g, '').split(",");
     }
 
     var date = new Date();
@@ -39,17 +70,33 @@ module.exports = {
     title = title.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
 
     // Generate fancy url
-    attrs.link = '/' + ['blog', date.getFullYear(),  date.getMonth() + 1, title].join('/');
+    attrs.link = '/' + ['blog', date.getFullYear(), date.getMonth() + 1, title].join('/');
 
     next();
-  },    
+  },
 
   beforeUpdate: function (updated, next) {
-  	// Save tags as an array
-    if(updated.tags) {
-    	updated.tags = updated.tags.replace(/\s+/g, '').split(",");
+    // Save tags as an array
+    if (updated.tags) {
+      updated.tags = updated.tags.replace(/\s+/g, '').split(",");
     }
     next();
-  },    
+  },
+
+  // beforeValidate: function (blog, cb) {
+
+  //   blog.tags.forEach(function (str) {
+  //     if (typeof (str) != "string") {
+  //       cb("err: tags must contain only strings");
+  //     }
+  //   })
+
+  //   cb()
+  // },
+
+  customToJSON: function() {
+    this.tags == "" ? [] : this.tags;
+    return this;
+  }
 
 };

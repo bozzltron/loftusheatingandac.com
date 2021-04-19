@@ -18,6 +18,60 @@
 var async = require('async'),
 	marked = require('marked');
 
+function _gettags(callback) {
+
+	// Get all tags
+	Blog.find({tags:{'!=':null}}, {tags: 1 }).exec(function(err, tags) {
+
+		// Error handling
+		if (err) {
+		return console.log(err);
+
+		// Found tags
+		} else {
+
+			// Collect all user entered tags
+			var allTags = [];
+			_.each(tags, function(tag){
+				_.each(tag.tags, function(postTag){
+					allTags.push(postTag);
+				});
+			});
+			
+			// Filter to unique tags only
+			var uniqTags = _.uniq(allTags);
+
+			callback(null, uniqTags);
+
+		}
+	});
+
+	};
+
+	function _getblogs(query, limit, callback) {
+
+		var limit = limit || false;
+
+		function response(err, posts) {
+
+		// Error handling
+		if (err) {
+		return console.log(err);
+
+		// Found multiple users!
+		} else {
+		callback(null, posts);
+		}
+	}
+
+	if(limit) {
+		Blog.find(query).limit(limit).sort('published DESC').exec(response);
+	} else {
+		Blog.find(query).sort('published DESC').exec(response);
+	}
+
+	};
+
 module.exports = {
     
   form: function(req, res) {
@@ -89,8 +143,6 @@ module.exports = {
 
   blog: function(req, res) {
 
-  	var BlogController = this.sails.controllers.blog;
-  
 	async.parallel([
 
 	    function(callback){
@@ -123,19 +175,19 @@ module.exports = {
 	    function(callback) { 
 
 	    	// Get most recent blogs
-		    BlogController._getblogs({}, 5, callback);
+		    _getblogs({}, 5, callback);
 
 	    },
-	    function(callback) {
+	    // function(callback) {
 
-	    	// Get tags
-		    BlogController._gettags(callback);	
+	    // 	// Get tags
+		//     _gettags(callback);	
 
-	    }
+	    // }
 	],
 	// optional callback
 	function(err, results){
-	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:false, tags:results[2]});
+	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:false, tags:[]});
 	});	
 
   },
@@ -237,8 +289,6 @@ module.exports = {
 
   view: function(req, res) {
 
-  	var BlogController = this.sails.controllers.blog;
-  	
 	async.parallel([
 
 	    function(callback){
@@ -275,19 +325,19 @@ module.exports = {
 	    function(callback){
 
 	    	// Get most recent blogs
-		    BlogController._getblogs({}, 5, callback);
+		    _getblogs({}, 5, callback);
 
 	    },
-	    function(callback) {
+	    // function(callback) {
 
-	    	// Get tags
-		    BlogController._gettags(callback);	
+	    // 	// Get tags
+		//     _gettags(callback);	
 
-	    }
+	    // }
 	],
 	// optional callback
 	function(err, results){
-	    return res.view('blog/view', {post: results[0], mostrecent: results[1], tags: results[2]});
+	    return res.view('blog/view', {post: results[0], mostrecent: results[1], tags: []});
 	});
 
   },
@@ -295,8 +345,7 @@ module.exports = {
   rss: function(req, res) {
 
 	// Get all blogs
-	var BlogController = this.sails.controllers.blog;
-	BlogController._getblogs({}, null, function(err, posts) {
+	_getblogs({}, null, function(err, posts) {
 
        	_.each(posts, function(post) {
 
@@ -317,23 +366,20 @@ module.exports = {
 
   tags: function(req, res) {
 
-  	var BlogController = this.sails.controllers.blog;
-  	BlogController._gettags(function(err, tags){
+  	_gettags(function(err, tags){
 		return res.json(tags);
   	})
 
   },
 
   tag: function(req, res) {
-
-  	var BlogController = this.sails.controllers.blog;
  
 	async.parallel([
 
 	    function(callback){
 
 			// Get all blogs with the specified tag
-			BlogController._getblogs({"tags" : req.param('tag')}, 5, function(err, blogs){
+			_getblogs({"tags" : req.param('tag')}, 5, function(err, blogs){
 
 				// Format output
 			    var moment = require("moment");
@@ -352,83 +398,21 @@ module.exports = {
 	    function(callback){
 
 	    	// Get most recent blogs
-		    BlogController._getblogs({}, 5, callback);
+		    _getblogs({}, 5, callback);
 
 	    },
-	    function(callback) {
+	    // function(callback) {
 
-	    	// Get tags
-		    BlogController._gettags(callback);	
+	    // 	// Get tags
+		//     _gettags(callback);	
 
-	    }
+	    // }
 	],
 	// optional callback
 	function(err, results){
-	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:req.param('tag'), tags:results[2]});
+	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:req.param('tag'), tags:[]});
 	});	
 
-  },
-
-  _gettags: function(callback) {
-
-	// Get all tags
-	Blog.find({tags:{$exists:true}}, {tags: 1 }).exec(function(err, tags) {
-
-	  // Error handling
-	  if (err) {
-	    return console.log(err);
-
-	  // Found tags
-	  } else {
-
-	  	// Collect all user entered tags
-	  	var allTags = [];
-	  	_.each(tags, function(tag){
-	  		_.each(tag.tags, function(postTag){
-	  			allTags.push(postTag);
-	  		});
-	  	});
-	  	
-	  	// Filter to unique tags only
-	  	var uniqTags = _.uniq(allTags);
-
-       	callback(null, uniqTags);
-
-	  }
-	});
-
-  },
-
-  _getblogs: function(query, limit, callback) {
-
-  	var limit = limit || false;
-
-  	function response(err, posts) {
-
-      // Error handling
-      if (err) {
-        return console.log(err);
-
-      // Found multiple users!
-      } else {
-        callback(null, posts);
-      }
-    }
-
-    if(limit) {
-    	Blog.find(query).limit(limit).sort('published DESC').exec(response);
-    } else {
-    	Blog.find(query).sort('published DESC').exec(response);
-    }
-
-  },
-
-  /**
-   * Overrides for the settings in `config/controllers.js`
-   * (specific to BlogController)
-   */
-  _config: {},
-
-  shortcuts: false
+  }
   
 };

@@ -9,4 +9,4 @@ services:
     environment:
       NODE_ENV: 'development'
       PORT: 1337
-    entrypoint: 'node_modules/.bin/forever -w --watchIgnore="node_modules" --watchIgnore=".tmp" app.js'
+    entrypoint: pm2-runtime app.js --watch

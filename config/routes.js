@@ -32,18 +32,13 @@ module.exports.routes = {
   // located at `views/home/index.ejs`
   // 
   // (This would also work if you had a file at: `/views/home.ejs`)
-  '/': {
+  'GET /': {
     controller: 'home',
     action: 'index'
   },
 
   'get /certification' : {
     view: 'home/certification'
-  },
-
-  'get /contact': {
-    controller: 'contact',
-    action: 'index'
   },
 
   'get /about': {
@@ -123,6 +118,11 @@ module.exports.routes = {
 
   'get /faq': {
     view: 'faq/index'
+  },
+
+  'get /contact': {
+    controller: 'contact',
+    action: 'index'
   },
 
   'post /contact': {

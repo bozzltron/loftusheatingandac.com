@@ -27,7 +27,7 @@ module.exports = {
 	login: function (req, res) {
 	    var bcrypt = require('bcrypt-nodejs');
 
-	    User.findOneByEmail(req.body.email).exec(function (err, user) {
+	    User.findOne({"email":req.body.email}).exec(function (err, user) {
 	      if (err) res.json({ error: 'DB error' }, 500);
 
 	      if (user) {

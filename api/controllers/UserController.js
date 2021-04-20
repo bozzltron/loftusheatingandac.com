@@ -37,18 +37,18 @@ module.exports = {
 	          if (match) {
 	            // password match
 	            req.session.user = user.id;
-	            //req.flash("success", "Welcome "+ user.email);
-	            res.redirect('blog');
+	            req.flash("success", "Welcome "+ user.email);
+	            res.redirect('/blog');
 	          } else {
 	            // invalid password
 	            if (req.session.user) req.session.user = null;
-	            //req.flash('danger', 'Invalid password!');
-	            res.redirect('login');
+	            req.flash('danger', 'Invalid password!');
+	            res.redirect('/login');
 	          }
 	        });
 	      } else {
-	      //	req.flash('danger', 'User not found!');
-	        res.redirect('login');
+	      	req.flash('danger', 'User not found!');
+	        res.redirect('/login');
 	      }
 	    });
 	},

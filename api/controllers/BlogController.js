@@ -83,70 +83,67 @@ module.exports = {
     }});
   },
 
-  create: function(req, res) {
+  create: async function (req, res) {
   
-  	var published = new Date()
+	try {
 
-  	if(req.body.id) {
+		var published = new Date()
 
-		// Update blog
-		Blog.findOne({id:req.body.id}).exec(function (err, blog) {
+		if(req.body.id) {
+			console.log('finding blog');
+			// Update blog
+			let blog = await Blog.findOne({id:req.body.id});
+			console.log('found blog', blog);
+			if (!blog) return res.send("No blogs with that id exists!", 404);
 
-	      if (err) return res.send(err,500);
-	      if (!blog) return res.send("No blogs with that id exists!", 404);
-	      
-	      blog.title = req.body.title;
-	      blog.body = req.body.body;
-	      blog.tags = req.body.tags;
-	      blog.link = req.body.link;
-	      blog.updated = published;
-	      blog.userId = req.session.user;
+			blog.title = req.body.title;
+			blog.body = req.body.body;
+			blog.tags = req.body.tags;
+			blog.link = req.body.link;
+			blog.updated = published;
+			blog.userId = req.session.user;
 
-	      // Persist the change
-	      blog.save(function (err) {
-	        if (err) return res.send(err,500);
+			// Persist the change
+			console.log('updating... ', blog);
+			await Blog.updateOne({id:req.body.id}).set(blog);
+			console.log("done")
 
-	        // Report back with the new state of the chicken
-	        req.flash("success", "Successfully update your blog.");
-	
-	        res.redirect('blog');
-	      });
+			// Report back with the new state of the chicken
+			req.flash("success", "Successfully update your blog.");
 
-	  	});
+			res.redirect('/blog');
 
-  	} else {
+		} else {
+			console.log('saving blog');
+			// Save the blog
+			await Blog.create({
+				title: req.body.title,
+				body: req.body.body,
+				tags: req.body.tags,
+				published: published,
+				userId: req.session.user 
+			})
 
-	  	// Save the blog
-		Blog.create({
-		  title: req.body.title,
-		  body: req.body.body,
-		  tags: req.body.tags,
-		  published: published,
-		  userId: req.session.user 
-		}).exec(function(err, user) {
+			req.flash("success", "Successfully created a new blog!");
+			return res.redirect('/blog');
 
-		  // Error handling
-		  if (err) {
-		    req.flash("danger", err);
-		  	return res.redirect('blog/create');
+		}
 
-		  // The User was created successfully!
-		  }else {
-		  	req.flash("success", "Successfully created a new blog!");
-		  	return res.redirect('blog');
-		  }
-		});
-
+	} catch(e) {
+		console.log('error', e);
+		req.flash("danger", err);
+		return res.redirect('/blog/create');
 	}
 
   },
 
   blog: function(req, res) {
 
+	try {
 	async.parallel([
 
 	    function(callback){
-
+			console.log ('getting all blogs');
 			// Get all blogs
 			Blog.find({}).sort('published DESC').exec(function(err, posts) {
 
@@ -173,7 +170,7 @@ module.exports = {
 
 	    },
 	    function(callback) { 
-
+			console.log ('calling _getblogs');
 	    	// Get most recent blogs
 		    _getblogs({}, 5, callback);
 
@@ -187,8 +184,13 @@ module.exports = {
 	],
 	// optional callback
 	function(err, results){
+		console.log ('results');
 	    return res.view('blog/index', {posts: results[0], mostrecent: results[1], tag:false, tags:[]});
 	});	
+
+	} catch (e) {
+		console.log('error', e);
+	}
 
   },
 
@@ -202,18 +204,17 @@ module.exports = {
   	});
   },
 
-  delete: function(req, res) {
-  	// Lookup a user
-	Blog.findOne({id:req.param('id')}).exec(function(err, blog) {
+  delete: async function(req, res) {
+	try {
+		// Lookup a user
+		await Blog.destroyOne({id:req.param('id')});
+		req.flash("success", "Successfully delete your blog");
+	    res.redirect('/blog');
+	} catch(e) {
+		req.flash("danger", "Failed to delete");
+	    res.redirect('/blog');
+	}
 
-	  	// destroy the record
-	  	blog.destroy(function(err) {
-	    	// record has been removed
-	    	req.flash("success", "Successfully delete your blog");
-	    	res.redirect('blog');
-	  	});
-
-	});
   },
 
   importForm: function(req, res) {

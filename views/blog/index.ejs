@@ -31,7 +31,7 @@
 
 		    <div class="blog-summary">
 			  <h4><a href="<%= post.link %>"><%= post.title %></a></h4>
-			  <% if(session.user) { %>
+			  <% if(req.session.user) { %>
 				  <div class="pull-right">
 					  <a href="/blog/edit/<%= post.id %>"><span class="glyphicon glyphicon-pencil"></span> Edit</a>&nbsp;&nbsp;
 					  <a class="link-delete" href="#" data-id="<%= post.id %>" data-toggle="modal" data-target=".bs-example-modal-sm"><span class="glyphicon glyphicon-remove-circle"></span> Delete</a>
@@ -93,7 +93,7 @@
 		</div>
 		<div class="col-sm-4">
 
-		  <% if(session.user) { %>
+		  <% if(req.session.user) { %>
 		  	<a class="hl-btn hl-btn-amethyst hl-btn-lg" href="/blog/create">Create Blog</a>
 		  <% } %>
 

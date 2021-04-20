@@ -84,7 +84,7 @@
                 </ul>
                 <!-- Search form for extra small screens -->
                 <ul class="nav navbar-nav navbar-right hidden-xs">
-                    <% if (!session.user) { %>
+                    <% if (!req.session.user) { %>
                         <!-- Sign in & Sign up -->
                         <li id="sign-in" class="show"><a href="/login">Sign In</a>
                         </li>

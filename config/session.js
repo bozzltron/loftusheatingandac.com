@@ -45,7 +45,7 @@ module.exports.session = {
   // Optional Values:
   //
   // # Note: url will override other connection settings
-  url: process.env.MONGOLAB_URI
+  //url: process.env.MONGOLAB_URI
   //
   // username: '',
   // password: '',

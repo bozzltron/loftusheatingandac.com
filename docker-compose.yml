@@ -9,4 +9,14 @@ services:
     environment:
       NODE_ENV: 'development'
       PORT: 1337
+      MONGOLAB_URI: mongodb://root:password@mongo:27017/?authSource=admin
     entrypoint: pm2-runtime app.js --watch
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"

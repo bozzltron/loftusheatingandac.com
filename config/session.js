@@ -17,7 +17,9 @@ module.exports.session = {
   // forcing them to log in again. 
   secret: '5b9e860eb68177c79ed4aaa8e98a9d57',
 
-
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  }
   // In production, uncomment the following lines to set up a shared redis session store
   // that can be shared across multiple Sails.js servers
   // adapter: 'redis',

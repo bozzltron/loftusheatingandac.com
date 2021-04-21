@@ -93,7 +93,7 @@
 		</div>
 		<div class="col-sm-4">
 
-		  <% if(req.session.user) { %>
+		  <% console.log('view session', req.session.user); if(req.session.user) { %>
 		  	<a class="hl-btn hl-btn-amethyst hl-btn-lg" href="/blog/create">Create Blog</a>
 		  <% } %>
 

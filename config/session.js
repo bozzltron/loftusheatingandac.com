@@ -18,6 +18,7 @@ module.exports.session = {
   secret: '5b9e860eb68177c79ed4aaa8e98a9d57',
 
   cookie: {
+    secure: false,
     maxAge: 24 * 60 * 60 * 1000
   }
   // In production, uncomment the following lines to set up a shared redis session store

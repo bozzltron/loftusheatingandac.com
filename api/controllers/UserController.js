@@ -26,17 +26,25 @@ module.exports = {
 
 	login: async function (req, res) {
 	    var bcrypt = require('bcrypt-nodejs');
-
-	    User.findOne({"email":req.body.email}).exec(function (err, user) {
-	      if (err) res.json({ error: 'DB error' }, 500);
+		
+		console.log('logging in');
+	    
+		User.findOne({"email":req.body.email}).exec(function (err, user) {
+	      if (err) { 
+			  console.log("err", err);
+			  return res.json({ error: 'DB error' }, 500);
+		  }
 
 	      if (user) {
+			console.log('user found', user);
 	        bcrypt.compare(req.body.password, user.password, function (err, match) {
 	          if (err) res.json({ error: 'Server error' }, 500);
 
 	          if (match) {
+				console.log('passwords match');
 	            // password match
 	            req.session.user = user.id;
+				console.log('session', req.session.user);
 	            req.flash("success", "Welcome "+ user.email);
 	            res.redirect('/blog');
 	          } else {
@@ -47,6 +55,7 @@ module.exports = {
 	          }
 	        });
 	      } else {
+			console.log("user not found");
 	      	req.flash('danger', 'User not found!');
 	        res.redirect('/login');
 	      }

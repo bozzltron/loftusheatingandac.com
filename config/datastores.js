@@ -10,9 +10,8 @@ module.exports.datastores = {
   // this file that were actually being used.  Your original `connections` config is
   // still available as `config/connections-old.js.txt`.
   default: {
-    adapter: require('sails-mongo'),
-    url: process.env.MONGOLAB_URI,
-    ssl: true
+    adapter: 'sails-mongo',
+    url: process.env.MONGOLAB_URI
   }
 
 };

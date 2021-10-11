@@ -1,17 +1,17 @@
+var bcrypt = require('bcrypt');
 
 if(process.argv[2]) {
 
 	console.log("Hashing " + process.argv[2]);
 
-    var bcrypt = require('bcrypt-nodejs');
-
     bcrypt.genSalt(10, function(err, salt) {
       if (err) console.log(err);
-
-      bcrypt.hash(process.argv[2], salt, null, function(err, hash) {
+      console.log("salt", salt);
+      bcrypt.hash(process.argv[2], salt, function(err, hash) {
+        // Store hash in your password DB.
         if (err) console.log(err);
 
-        console.log(hash);
+        console.log(hash)
       });
     });
 } else {
